@@ -12,7 +12,7 @@ public class BacklogMapper implements RowMapper<Backlog> {
         Backlog backlog = new Backlog();
         backlog.setBacklogId(resultSet.getInt("id"));
         backlog.setUserId(resultSet.getInt("user_id"));
-        backlog.setGameId(resultSet.getInt("game"));
+        backlog.setGameId(resultSet.getInt("game_id"));
         backlog.setCompleted(resultSet.getBoolean("isCompleted"));
         backlog.setDatetimeAdded(resultSet.getTimestamp("datetime_added"));
 

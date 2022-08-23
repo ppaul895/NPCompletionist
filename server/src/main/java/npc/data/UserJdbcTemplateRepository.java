@@ -32,7 +32,7 @@ public class UserJdbcTemplateRepository implements UserRepository {
     @Override
     @Transactional
     public User findById(int userId) {
-        final String sql = "select id, username, password"
+        final String sql = "select id, username, password "
                 + "from user "
                 + "where id = ?;";
 
