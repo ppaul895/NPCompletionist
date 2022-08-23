@@ -32,7 +32,7 @@ public class BacklogJdbcTemplateRepository implements BacklogRepository {
     @Override
     @Transactional
     public Backlog findById(int backlogId) {
-        final String sql = "select id, user_id, game_id, isCompleted, datetime_added"
+        final String sql = "select id, user_id, game_id, isCompleted, datetime_added "
                 + "from backlog "
                 + "where id = ?;";
 
@@ -71,7 +71,6 @@ public class BacklogJdbcTemplateRepository implements BacklogRepository {
     public boolean update(Backlog backlog) {
 
         final String sql = "update backlog set "
-                + "id = ?, "
                 + "user_id = ?, "
                 + "game_id = ?, "
                 + "isCompleted = ?, "
@@ -79,16 +78,16 @@ public class BacklogJdbcTemplateRepository implements BacklogRepository {
                 + "where id = ?;";
 
         return jdbcTemplate.update(sql,
-                backlog.getBacklogId(),
                 backlog.getUserId(),
                 backlog.getGameId(),
-                backlog.getDatetimeAdded()) > 0;
+                backlog.isCompleted(),
+                backlog.getDatetimeAdded(),
+                backlog.getBacklogId()) > 0;
     }
 
     @Override
     @Transactional
     public boolean deleteById(int backlogId) {
-        jdbcTemplate.update("delete from backlog where game_id = ?;", backlogId);
-        return jdbcTemplate.update("delete from backlog where game_id = ?;", backlogId) > 0;
+        return jdbcTemplate.update("delete from backlog where id = ?;", backlogId) > 0;
     }
 }

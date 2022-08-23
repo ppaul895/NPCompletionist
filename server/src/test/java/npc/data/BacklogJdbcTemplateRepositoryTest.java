@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,44 +27,45 @@ class BacklogJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldFindAgencies() {
-        List<Backlog> agencies = repository.findAll();
-        assertNotNull(agencies);
-        assertTrue(agencies.size() > 0);
-    }
-
-    @Test
     void shouldFindBacklog() {
-        Backlog backlog = repository.findById(1);
-        assertEquals("1", backlog.getBacklogId());
+        List<Backlog> backlogs = repository.findAll();
+        assertNotNull(backlogs);
+        assertTrue(backlogs.size() > 0);
     }
 
     @Test
-    void shouldAddAgency() {
+    void shouldFindBacklogID() {
+        Backlog backlog = repository.findById(1);
+        assertEquals(1, backlog.getBacklogId());
+    }
+
+    @Test
+    void shouldAddBacklog() {
         Backlog backlog = new Backlog();
         backlog.setUserId(1);
         backlog.setGameId(1);
+        backlog.setCompleted(true);
+        backlog.setDatetimeAdded(Timestamp.valueOf(LocalDateTime.now()));
         Backlog actual = repository.add(backlog);
         assertNotNull(actual);
-        assertEquals(4, actual.getBacklogId());
+        assertEquals(5, actual.getBacklogId());
     }
 
     @Test
-    void shouldUpdateAgency() {
-
+    void shouldUpdateBacklog() {
         Backlog backlog = new Backlog();
         backlog.setBacklogId(3);
-        backlog.setUserId(3);
+        backlog.setUserId(1);
         backlog.setGameId(3);
         backlog.setCompleted(true);
-//        backlog.getDatetimeAdded();
-
+        backlog.setDatetimeAdded(Timestamp.valueOf("2022-08-22 11:51:12"));
+//        yyyy-mm-dd hh:mm:ss
         assertTrue(repository.update(backlog));
     }
 
     @Test
-    void shouldDeleteAgency() {
+    void shouldDeleteBacklog() {
         assertTrue(repository.deleteById(2));
-        assertFalse(repository.deleteById(2));
+        assertFalse(repository.deleteById(1000000));
     }
 }
