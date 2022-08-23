@@ -13,7 +13,7 @@ import java.sql.Statement;
 import java.util.List;
 
 @Repository
-@Profile("jdbc-template")
+//@Profile("jdbc-template")
 public class MediaJdbcTemplateRepository implements MediaRepository {
 
     private final JdbcTemplate jdbcTemplate;
