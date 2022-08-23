@@ -40,11 +40,10 @@ class UserJdbcTemplateRepositoryTest {
     @Test
     void shouldAddUser() {
         User user = new User();
-        user.setUserName("unusedName");
-        user.setUserPassword("TestPassword");
+        user.setUserName("tester4");
+        user.setUserPassword("$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa");
         User actual = repository.add(user);
         assertNotNull(actual);
-        assertEquals(5, actual.getUserId());
+        assertEquals(4, actual.getUserId());
     }
-
 }

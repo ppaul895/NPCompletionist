@@ -2,7 +2,6 @@ package npc.data;
 
 import npc.data.mappers.MediaMapper;
 import npc.models.Media;
-import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -11,9 +10,9 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
-//@Profile("jdbc-template")
 public class MediaJdbcTemplateRepository implements MediaRepository {
 
     private final JdbcTemplate jdbcTemplate;
@@ -60,9 +59,7 @@ public class MediaJdbcTemplateRepository implements MediaRepository {
             return null;
         }
 
-        media.setMediaId(keyHolder.getKey().intValue());
+        media.setMediaId(Objects.requireNonNull(keyHolder.getKey()).intValue());
         return media;
     }
-
-
 }

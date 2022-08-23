@@ -1,18 +1,16 @@
 package npc.data;
 
-import npc.data.mappers.BacklogMapper;
 import npc.data.mappers.UserMapper;
-import npc.models.Backlog;
 import npc.models.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class UserJdbcTemplateRepository implements UserRepository {
@@ -30,16 +28,13 @@ public class UserJdbcTemplateRepository implements UserRepository {
     }
 
     @Override
-    @Transactional
     public User findById(int userId) {
         final String sql = "select id, username, password "
                 + "from user "
                 + "where id = ?;";
 
-        User result = jdbcTemplate.query(sql, new UserMapper(), userId).stream()
+        return jdbcTemplate.query(sql, new UserMapper(), userId).stream()
                 .findAny().orElse(null);
-
-        return result;
     }
 
     @Override
@@ -61,7 +56,7 @@ public class UserJdbcTemplateRepository implements UserRepository {
             return null;
         }
 
-        user.setUserId(keyHolder.getKey().intValue());
+        user.setUserId(Objects.requireNonNull(keyHolder.getKey()).intValue());
         return user;
     }
 }

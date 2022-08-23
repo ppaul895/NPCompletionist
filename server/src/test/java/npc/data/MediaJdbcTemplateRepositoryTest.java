@@ -29,7 +29,7 @@ class MediaJdbcTemplateRepositoryTest {
     void shouldFindAll() {
         List<Media> medias = repository.findAll();
         assertNotNull(medias);
-        assertTrue(medias.size() >= 2 && medias.size() <= 6);
+        assertTrue(medias.size() > 0);
     }
 
     @Test
