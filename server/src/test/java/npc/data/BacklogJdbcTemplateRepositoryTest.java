@@ -42,9 +42,9 @@ class BacklogJdbcTemplateRepositoryTest {
     @Test
     void shouldAddBacklog() {
         Backlog backlog = new Backlog();
-        backlog.setUserId(1);
+        backlog.setUserId(2);
         backlog.setGameId(1);
-        backlog.setCompleted(true);
+        backlog.setCompleted(false);
         backlog.setDatetimeAdded(Timestamp.valueOf(LocalDateTime.now()));
         Backlog actual = repository.add(backlog);
         assertNotNull(actual);
@@ -59,7 +59,6 @@ class BacklogJdbcTemplateRepositoryTest {
         backlog.setGameId(3);
         backlog.setCompleted(true);
         backlog.setDatetimeAdded(Timestamp.valueOf("2022-08-22 11:51:12"));
-//        yyyy-mm-dd hh:mm:ss
         assertTrue(repository.update(backlog));
     }
 

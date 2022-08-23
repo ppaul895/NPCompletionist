@@ -2,17 +2,15 @@ package npc.data;
 
 import npc.data.mappers.BacklogMapper;
 import npc.models.Backlog;
-import npc.models.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class BacklogJdbcTemplateRepository implements BacklogRepository {
@@ -30,16 +28,13 @@ public class BacklogJdbcTemplateRepository implements BacklogRepository {
     }
 
     @Override
-    @Transactional
     public Backlog findById(int backlogId) {
         final String sql = "select id, user_id, game_id, isCompleted, datetime_added "
                 + "from backlog "
                 + "where id = ?;";
 
-        Backlog result = jdbcTemplate.query(sql, new BacklogMapper(), backlogId).stream()
+        return jdbcTemplate.query(sql, new BacklogMapper(), backlogId).stream()
                 .findAny().orElse(null);
-
-        return result;
     }
 
     @Override
@@ -63,7 +58,7 @@ public class BacklogJdbcTemplateRepository implements BacklogRepository {
             return null;
         }
 
-        backlog.setBacklogId(keyHolder.getKey().intValue());
+        backlog.setBacklogId(Objects.requireNonNull(keyHolder.getKey()).intValue());
         return backlog;
     }
 
@@ -86,7 +81,6 @@ public class BacklogJdbcTemplateRepository implements BacklogRepository {
     }
 
     @Override
-    @Transactional
     public boolean deleteById(int backlogId) {
         return jdbcTemplate.update("delete from backlog where id = ?;", backlogId) > 0;
     }

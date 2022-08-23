@@ -87,8 +87,7 @@ begin
     values
         ('tester1','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa'),
         ('tester2','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa'),
-        ('tester3','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa'),
-        ('tester4','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa');
+        ('tester3','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa');
 
     insert into game
         (title, release_date, developer, score, media_id, genre)
@@ -103,8 +102,7 @@ begin
     values
         ('https://img.opencritic.com/game/12090/o/5BXKr5S1.jpg','https://youtube.com/watch?v=UhD0_MM4fnU'),
         ('https://img.opencritic.com/game/13386/o/S3tnyfm8.jpg','https://www.youtube.com/watch?v=fOm_9N9ksBY'),
-        ('https://img.opencritic.com/game/12088/o/AcyojAVM.jpg','https://youtube.com/watch?v=PyMlV5_HRWk'),
-        ('https://img.opencritic.com/game/13509/o/KW0nVeXe.jpg','https://www.youtube.com/watch?v=xsPtUNB1z-Q');
+        ('https://img.opencritic.com/game/12088/o/AcyojAVM.jpg','https://youtube.com/watch?v=PyMlV5_HRWk');
 
     insert into backlog
         (user_id, game_id, isCompleted, datetime_added)

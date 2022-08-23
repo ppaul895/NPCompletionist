@@ -27,7 +27,7 @@ class GamePlatformJdbcTemplateRepositoryTest {
     void shouldFindAll() {
         List<GamePlatform> gamePlatforms = repository.findAll();
         assertNotNull(gamePlatforms);
-        assertEquals(16, gamePlatforms.size());
+        assertTrue(gamePlatforms.size() > 0);
     }
 
     @Test
