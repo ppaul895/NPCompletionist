@@ -12,9 +12,4 @@ public interface UserRepository {
     User findById(int user_Id);
 
     User add(User user);
-
-    boolean update(User user);
-
-    @Transactional
-    boolean deleteById(int user_Id);
 }

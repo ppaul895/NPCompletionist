@@ -10,12 +10,12 @@ public interface BacklogRepository {
     List<Backlog> findAll();
 
     @Transactional
-    User findById(int backlog_Id);
+    Backlog findById(int backlogId);
 
-    User add(Backlog backlog);
+    Backlog add(Backlog backlog);
 
     boolean update(Backlog backlog);
 
     @Transactional
-    boolean deleteById(int backlog_Id);
+    boolean deleteById(int backlogId);
 }
