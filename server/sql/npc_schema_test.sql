@@ -28,8 +28,8 @@ CREATE TABLE `game` (
 
 CREATE TABLE `media` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `image_url` varchar(255) NOT NULL,
-  `trailer_url` varchar(255) NOT NULL
+  `image_url` varchar(255),
+  `trailer_url` varchar(255)
 );
 
 CREATE TABLE `platform` (
@@ -52,11 +52,24 @@ ALTER TABLE `game_platform` ADD FOREIGN KEY (`platform_id`) REFERENCES `platform
 delimiter //
 create procedure set_known_good_state()
 begin
-	insert into platform 
-		(`name`) 
-	values
-		('Xbox Series X/S'),
-		('PlayStation 5'),
+    delete from backlog;
+    alter table backlog auto_increment = 1;
+    delete from `user`;
+    alter table `user` auto_increment = 1;
+    delete from game_platform;
+    alter table game_platform auto_increment = 1;
+    delete from platform;
+    alter table platform auto_increment = 1;
+    delete from media;
+    alter table media auto_increment = 1;
+    delete from game;
+    alter table game auto_increment = 1;
+    
+    insert into platform 
+        (`name`) 
+    values
+        ('Xbox Series X/S'),
+        ('PlayStation 5'),
         ('Nintendo Switch'),
         ('PC'),
         ('Google Stadia'),
@@ -69,42 +82,42 @@ begin
         ('Nintendo 3DS'),
         ('PlayStation Vita');
 
-	insert into `user` 
-		(username, `password`) 
-	values
-		('tester1','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa'),
-		('tester2','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa'),
+    insert into `user` 
+        (username, `password`) 
+    values
+        ('tester1','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa'),
+        ('tester2','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa'),
         ('tester3','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa'),
         ('tester4','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa');
 
-	insert into games
-		(title, release_date, developer, score, media_id, genre)
-	values
-		('Elden Ring','2022-02-25','FromSoftware Inc.',95,1,'Action'),
+    insert into game
+        (title, release_date, developer, score, media_id, genre)
+    values
+        ('Elden Ring','2022-02-25','FromSoftware Inc.',95,1,'Action'),
         ('Stray','2022-07-19','BlueTwelve Studios',84,2,'Adventure'),
         ('Halo Infinite','2021-12-08','343 Industries',87,3,'Action'),
         ('Cult of the Lamb','2022-08-11','Massive Monster',85,4,'Action');
 
-	insert into media
-		(image_url, trailer_url)
-	values
-		('https://img.opencritic.com/game/12090/o/5BXKr5S1.jpg','https://youtube.com/watch?v=UhD0_MM4fnU'),
-		('https://img.opencritic.com/game/13386/o/S3tnyfm8.jpg','https://www.youtube.com/watch?v=fOm_9N9ksBY'),
-		('https://img.opencritic.com/game/12088/o/AcyojAVM.jpg','https://youtube.com/watch?v=PyMlV5_HRWk'),
-		('https://img.opencritic.com/game/13509/o/KW0nVeXe.jpg','https://www.youtube.com/watch?v=xsPtUNB1z-Q');
+    insert into media
+        (image_url, trailer_url)
+    values
+        ('https://img.opencritic.com/game/12090/o/5BXKr5S1.jpg','https://youtube.com/watch?v=UhD0_MM4fnU'),
+        ('https://img.opencritic.com/game/13386/o/S3tnyfm8.jpg','https://www.youtube.com/watch?v=fOm_9N9ksBY'),
+        ('https://img.opencritic.com/game/12088/o/AcyojAVM.jpg','https://youtube.com/watch?v=PyMlV5_HRWk'),
+        ('https://img.opencritic.com/game/13509/o/KW0nVeXe.jpg','https://www.youtube.com/watch?v=xsPtUNB1z-Q');
 
-	insert into backlog
-		(user_id, game_id, isCompleted, datetime_added)
-	values
-		(1, 1, false, '2022-08-22T11:36:07.230077600'),
+    insert into backlog
+        (user_id, game_id, isCompleted, datetime_added)
+    values
+        (1, 1, false, '2022-08-22T11:36:07.230077600'),
         (1, 2, false, '2022-08-22T11:42:34.823904100'),
         (1, 3, false, '2022-08-22T11:51:12.452391700'),
         (1, 4, false, '2022-08-22T11:58:45.245624500');
 
-	insert into game_platform
+    insert into game_platform
         (game_id, platform_id)
-	values
-		(1, 4),
+    values
+        (1, 4),
         (1, 1),
         (1, 2),
         (1, 6),
