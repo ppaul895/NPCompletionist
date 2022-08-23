@@ -13,7 +13,7 @@ CREATE TABLE `backlog` (
   `user_id` int NOT NULL,
   `game_id` int NOT NULL,
   `isCompleted` boolean NOT NULL,
-  `datetime_added` datetime NOT NULL
+  `datetime_added` timestamp NOT NULL
 );
 
 CREATE TABLE `game` (
