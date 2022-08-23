@@ -1,5 +1,6 @@
 package npc.data;
 
+import npc.data.mappers.MediaMapper;
 import npc.models.Media;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
