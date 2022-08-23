@@ -1,4 +1,4 @@
-package npc.data;
+package npc.data.mappers;
 
 public class GameMapper {
 

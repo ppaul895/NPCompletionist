@@ -1,5 +1,6 @@
 package npc.data;
 
+import npc.models.Backlog;
 import npc.models.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -7,37 +8,36 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class UserJdbcTemplateRepository implements UserRepository {
+public class BacklogJdbcTemplateRepository implements BacklogRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-
-    public UserJdbcTemplateRepository(JdbcTemplate jdbcTemplate) {
+    public BacklogJdbcTemplateRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
-    public List<User> findAll() {
+    public List<Backlog> findAll() {
         return null;
     }
 
     @Override
-    public User findById(int user_Id) {
+    public User findById(int backlog_Id) {
         return null;
     }
 
     @Override
-    public User add(User user) {
+    public User add(Backlog backlog) {
         return null;
     }
 
     @Override
-    public boolean update(User user) {
+    public boolean update(Backlog backlog) {
         return false;
     }
 
     @Override
-    public boolean deleteById(int user_Id) {
+    public boolean deleteById(int backlog_Id) {
         return false;
     }
 }
