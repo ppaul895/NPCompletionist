@@ -28,8 +28,8 @@ CREATE TABLE `game` (
 
 CREATE TABLE `media` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `image_url` varchar(255) NOT NULL,
-  `trailer_url` varchar(255) NOT NULL
+  `image_url` varchar(255),
+  `trailer_url` varchar(255)
 );
 
 CREATE TABLE `platform` (
