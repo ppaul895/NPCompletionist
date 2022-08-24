@@ -51,6 +51,7 @@ public class GamePlatformService {
         for (GamePlatform gp : repository.findAll()) {
             if (gp.getGameId() == gamePlatform.getGameId() && gp.getPlatformId() == gamePlatform.getPlatformId()) {
                 result.addMessage("Game Platform is a duplicate.", ResultType.INVALID);
+                break;
             }
         }
         return result;
