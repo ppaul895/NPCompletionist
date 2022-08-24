@@ -4,6 +4,8 @@ import npc.data.MediaRepository;
 import npc.models.Media;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MediaService {
 
@@ -11,6 +13,10 @@ public class MediaService {
 
     public MediaService(MediaRepository repository) {
         this.repository = repository;
+    }
+
+    public List findAll() {
+        return repository.findAll();
     }
 
     public Media findById(int mediaId) {
