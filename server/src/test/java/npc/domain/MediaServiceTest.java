@@ -46,6 +46,8 @@ public class MediaServiceTest {
 
         Result<Media> actual = service.add(media);
         assertEquals(ResultType.INVALID, actual.getType());
+
+        // duplicate
     }
 
     @Test
