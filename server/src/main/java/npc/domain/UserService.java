@@ -4,7 +4,6 @@ import npc.data.UserRepository;
 import npc.models.User;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -24,7 +23,7 @@ public class UserService {
     }
 
     public Result<User> add(User user) {
-        Result<User> result = validate(user, false);
+        Result<User> result = validate(user);
         if (!result.isSuccess()) {
             return result;
         }
@@ -39,8 +38,7 @@ public class UserService {
         return result;
     }
 
-
-    private Result<User> validate(User user, boolean forUpdate) {
+    private Result<User> validate(User user) {
         Result<User> result = new Result<>();
         if (user == null) {
             result.addMessage("User cannot be null.", ResultType.INVALID);
@@ -57,12 +55,9 @@ public class UserService {
 
         for (User u : repository.findAll()) {
             if (u.getUserName().equals(user.getUserName())) {
-                if (forUpdate && u.getUserId() == user.getUserId())
-                    continue;
-                result.addMessage("Username is a duplicate.", ResultType.INVALID);
+                result.addMessage("Username is already in use.", ResultType.INVALID);
+                break;
             }
-
-            return result;
         }
         return result;
     }
