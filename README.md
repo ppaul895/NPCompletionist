@@ -4,7 +4,7 @@
 * **Description:** What's harder than NP-hard? Actually completing a video game before buying another one. NPCompletionist is a web app to search games and manage your backlog!
 
 # Team Members
-<img src="https://lh3.googleusercontent.com/pw/AL9nZEXG-UQQm2OXIzCuLHa4uF8DTXA-7lSku6tO-GZVOPU5fD0W_3-RdlPrAl2kokW5SnaTtdlvwuaAMc5LnUK7qDT6gStfHsHbvuf6EPZE09BRtgHOQql3vM8q0nXaRBFkri5lrW1z_O-r5k1DgUTVnGE=w700-h583-no?" alt="NPCompletionist team"></img>
+<img src="https://lh3.googleusercontent.com/pw/AL9nZEWrDdhsicKZ4EKhUy2W4BD3D2Wyh8Yy-H9KJ45ejWWiFg8sTiaabUQxFOA6QlaC5h6yqmjgdYTl2N4DYcPx5mXzEHcfQlytj06chsiG4fNf0oFCIKkdavMrSMIVeveqa51xS4Rn5GVCYCeABJ380uIf=w700-h583" alt="NPCompletionist team"></img>
 
 # Documentation
 * [Project Outline](https://docs.google.com/document/d/1VACecq0t_duH70fHId2aXnnU1Xbd_2f6cFJAm-SfM1A/edit?usp=sharing)
