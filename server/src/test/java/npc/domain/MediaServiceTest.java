@@ -43,9 +43,16 @@ public class MediaServiceTest {
         // if ID already exists
         Media media = makeMedia();
         media.setMediaId(1);
-
         Result<Media> actual = service.add(media);
         assertEquals(ResultType.INVALID, actual.getType());
+
+        // duplicate
+        Media duplicateMedia = new Media();
+        duplicateMedia.setMediaId(6);
+        duplicateMedia.setImage_url("https://img.opencritic.com/game/12090/o/5BXKr5S1.jpg");
+        duplicateMedia.setTrailer_url("https://youtube.com/watch?v=UhD0_MM4fnU");
+        Result<Media> result = service.add(duplicateMedia);
+        assertEquals(ResultType.INVALID, result.getType());
     }
 
     @Test

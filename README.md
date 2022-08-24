@@ -1,8 +1,11 @@
-# NPCompletionist
-What's harder than NP-hard? Actually completing a video game before buying the next thing on your Steam wishlist. A web app to search games and track your backlog/progress in your favorite games!
+<img src="https://lh3.googleusercontent.com/pw/AL9nZEUID41m3X4Le9RqBqhjJLGvQwNhU263-P8tmlpTZBxKuYaQw1eKuLG2JGtVLve6xZdzJu_DhUIYPhjayAhJXF5oHrvnT0BcJj3NJM97cPsyukCbFUb-_qPryFwS7wAOfwfcGUZeee09klu1K3UxJgE=w1391-h435-no" alt="NPCompletionist banner"></img>
 
+# NPCompletionist
+What's harder than NP-hard? Actually completing a video game before buying another one. NPCompletionist is a web app to search games and manage your backlog!
 
 ## Team Members
+<img src="https://lh3.googleusercontent.com/pw/AL9nZEXsUkhexTujSaj_QCy8XSzFkuTzoFCqCcr9pYMdhmo6bB7iW_0Ic-iya4Zo1hJxTC0P2JerzcgNEutOUtGk-35FYFBGwBo9AmFjXlnQ_LYrhoDUvqCWNBkYa9iRw7bM0ckT5UqzgUsDfKe-6kceQTI=w1080-h900-no?" alt="NPCompletionist team"></img>
+
 | Name | Contact Info | Class |
 | --- | --- | --- |
 | [Prince Paul](https://github.com/ppaul895) | ppaul895@gmail.com | Druid |
