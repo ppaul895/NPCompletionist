@@ -52,5 +52,4 @@ public class Media {
     public int hashCode() {
         return Objects.hash(mediaId, image_url, trailer_url);
     }
-
 }

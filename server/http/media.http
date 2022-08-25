@@ -1,0 +1,24 @@
+@url = http://localhost:8080/api/media
+
+### [ ] GET all media
+
+GET {{url}} HTTP/1.1
+
+### [ ] GET media by ID
+
+GET {{url}}/2 HTTP/1.1
+
+### [ ] For GET return a 404 if media is not found
+
+GET {{url}}/9001 HTTP/1.1
+
+### [ ] For POST return a 400 if the media is a duplication
+### [ ] Cannot duplicate image & trailer
+
+POST {{url}} HTTP/1.1
+Content-Type: application/json
+
+{
+    "image_url": "https://img.opencritic.com/game/13386/o/S3tnyfm8.jpg",
+	"trailer_url": "https://www.youtube.com/watch?v=fOm_9N9ksBY"
+}

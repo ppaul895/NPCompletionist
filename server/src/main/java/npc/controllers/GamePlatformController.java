@@ -34,6 +34,7 @@ public class GamePlatformController {
         return new ResponseEntity<>(gamePlatform, HttpStatus.OK);
     }
 
+
     @PostMapping
     public ResponseEntity<Object> add(@RequestBody GamePlatform gamePlatform) {
         Result<GamePlatform> result = service.add(gamePlatform);
