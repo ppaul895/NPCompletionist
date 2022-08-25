@@ -26,8 +26,12 @@ public class MediaController {
     }
 
     @GetMapping("/{mediaId}")
-    public Media findById(@PathVariable int mediaId) {
-        return service.findById(mediaId);
+    public ResponseEntity<Media> findById(@PathVariable int mediaId) {
+        Media media = service.findById(mediaId);
+        if (media == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(media, HttpStatus.OK);
     }
 
     @PostMapping
@@ -38,5 +42,4 @@ public class MediaController {
         }
         return ErrorResponse.build(result);
     }
-
 }

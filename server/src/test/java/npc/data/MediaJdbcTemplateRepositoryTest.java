@@ -54,5 +54,4 @@ class MediaJdbcTemplateRepositoryTest {
         media.setTrailer_url("https://www.youtube.com/watch?v=xsPtUNB1z-Q");
         return media;
     }
-
 }

@@ -53,7 +53,6 @@ public class MediaServiceTest {
         duplicateMedia.setTrailer_url("https://youtube.com/watch?v=UhD0_MM4fnU");
         Result<Media> result = service.add(duplicateMedia);
         assertEquals(ResultType.INVALID, result.getType());
-
     }
 
     @Test
@@ -112,5 +111,4 @@ public class MediaServiceTest {
         Media m3 = new Media(3, "https://img.opencritic.com/game/12088/o/AcyojAVM.jpg", "https://youtube.com/watch?v=PyMlV5_HRWk");
         return Arrays.asList(m1, m2, m3);
     }
-
 }

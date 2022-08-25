@@ -30,6 +30,7 @@ public class GamePlatformController {
         return service.findById(gamePlatformId);
     }
 
+
     @PostMapping
     public ResponseEntity<Object> add(@RequestBody GamePlatform gamePlatform) {
         Result<GamePlatform> result = service.add(gamePlatform);
