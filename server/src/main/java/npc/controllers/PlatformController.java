@@ -2,6 +2,8 @@ package npc.controllers;
 
 import npc.domain.PlatformService;
 import npc.models.Platform;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +25,11 @@ public class PlatformController {
     }
 
     @GetMapping("/{platformId}")
-    public Platform findById(@PathVariable int platformId) {
-        return service.findById(platformId);
+    public ResponseEntity<Platform> findById(@PathVariable int platformId) {
+        Platform platform = service.findById(platformId);
+        if (platform == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(platform, HttpStatus.OK);
     }
-
 }
