@@ -1,6 +1,7 @@
 package npc.data;
 
 import npc.data.mappers.GameMapper;
+import npc.data.mappers.PlatformMapper;
 import npc.models.Game;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -24,7 +25,11 @@ public class GameJdbcTemplateRepository implements GameRepository {
     @Override
     public List<Game> findAll() {
         final String sql = "select id, title, release_date, developer, score, media_id, genre from game";
-        return jdbcTemplate.query(sql, new GameMapper());
+        List<Game> allGames = jdbcTemplate.query(sql, new GameMapper());
+        for (Game g : allGames) {
+            addPlatforms(g);
+        }
+        return allGames;
     }
 
     @Override
@@ -32,9 +37,15 @@ public class GameJdbcTemplateRepository implements GameRepository {
         final String sql = "select id, title, release_date, developer, score, media_id, genre from game "
                 + "where id = ?;";
 
-        return jdbcTemplate.query(sql, new GameMapper(), gameId)
+        Game game = jdbcTemplate.query(sql, new GameMapper(), gameId)
                 .stream()
                 .findFirst().orElse(null);
+
+        if (game != null) {
+            addPlatforms(game);
+        }
+
+        return game;
     }
 
     @Override
@@ -68,5 +79,16 @@ public class GameJdbcTemplateRepository implements GameRepository {
     public boolean deleteById(int gameId) {
         return jdbcTemplate.update("delete from game where id = ?;",
                 gameId) > 0;
+    }
+
+    private void addPlatforms(Game game) {
+        final String sql = "select p.id, p.name " +
+                "from platform p " +
+                "inner join game_platform gp on gp.platform_id = p.id " +
+                "inner join game g on g.id = gp.game_id " +
+                "where g.id = ?;";
+
+        var platforms = jdbcTemplate.query(sql, new PlatformMapper(), game.getGameId());
+        game.setPlatforms(platforms);
     }
 }
