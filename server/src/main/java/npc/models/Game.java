@@ -12,7 +12,7 @@ public class Game {
     private int score;
     private int mediaId;
     private String genre;
-    List<GamePlatform> platforms;
+    List<Platform> platforms;
 
     public int getGameId() {
         return gameId;
@@ -70,11 +70,11 @@ public class Game {
         this.genre = genre;
     }
 
-    public List<GamePlatform> getPlatforms() {
+    public List<Platform> getPlatforms() {
         return platforms;
     }
 
-    public void setPlatforms(List<GamePlatform> platforms) {
+    public void setPlatforms(List<Platform> platforms) {
         this.platforms = platforms;
     }
 
