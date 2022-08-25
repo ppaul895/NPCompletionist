@@ -25,9 +25,14 @@ public class UserController {
         return service.findAll();
     }
 
+
     @GetMapping("/{userId}")
-    public User findById(@PathVariable int userId) {
-        return service.findById(userId);
+    public ResponseEntity<User> findById(@PathVariable int userId) {
+        User user = service.findById(userId);
+        if (user == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping
