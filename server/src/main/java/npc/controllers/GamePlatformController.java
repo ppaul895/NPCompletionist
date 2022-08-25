@@ -26,8 +26,12 @@ public class GamePlatformController {
     }
 
     @GetMapping("/{gamePlatformId}")
-    public GamePlatform findById(@PathVariable int gamePlatformId) {
-        return service.findById(gamePlatformId);
+    public ResponseEntity<GamePlatform> findById(@PathVariable int gamePlatformId) {
+        GamePlatform gamePlatform = service.findById(gamePlatformId);
+        if (gamePlatform == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(gamePlatform, HttpStatus.OK);
     }
 
     @PostMapping

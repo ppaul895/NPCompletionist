@@ -1,0 +1,13 @@
+@url = http://localhost:8080/api/platform
+
+### [ ] GET all platforms
+
+GET {{url}} HTTP/1.1
+
+### [ ] GET a platform by ID
+
+GET {{url}}/3 HTTP/1.1
+
+### [ ] For GET return a 404 if platform is not found
+
+GET {{url}}/30 HTTP/1.1

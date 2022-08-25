@@ -1,0 +1,54 @@
+@url = http://localhost:8080/api/gameplatform
+
+### [ ] GET all game platforms
+
+GET {{url}} HTTP/1.1
+
+### [ ] GET a game platform by ID
+
+GET {{url}}/3 HTTP/1.1
+
+### [ ] For GET return a 404 if game platform is not found
+
+GET {{url}}/30 HTTP/1.1
+
+### [ ] POST a game platform
+
+POST {{url}} HTTP/1.1
+Content-Type: application/json
+
+{
+  "gameId": 3,
+  "platformId": 4
+}
+
+### [ ] For POST return a 400 if the game platform fails one or more of the domain rules
+### [ ] Game Id and Platform ID are required
+
+POST {{url}} HTTP/1.1
+Content-Type: application/json
+
+{}
+
+### [ ] For POST return a 400 if the game platform fails one or more of the domain rules
+### [ ] Game Platform is a duplicate
+
+POST {{url}} HTTP/1.1
+Content-Type: application/json
+
+{
+  "gameId": 4,
+  "platformId": 7
+}
+
+### [ ] For POST return a 400 if the game platform fails one or more of the domain rules
+### [ ] GamePlatform Id cannot be set for add operation
+
+POST {{url}} HTTP/1.1
+Content-Type: application/json
+
+{
+  "gamePlatformId" : 17,
+  "gameId": 5,
+  "platformId": 1
+}
