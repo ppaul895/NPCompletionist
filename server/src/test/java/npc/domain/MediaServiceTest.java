@@ -53,6 +53,7 @@ public class MediaServiceTest {
         duplicateMedia.setTrailer_url("https://youtube.com/watch?v=UhD0_MM4fnU");
         Result<Media> result = service.add(duplicateMedia);
         assertEquals(ResultType.INVALID, result.getType());
+
     }
 
     @Test
@@ -66,6 +67,36 @@ public class MediaServiceTest {
         Result<Media> result = service.add(arg);
         assertEquals(ResultType.SUCCESS, result.getType());
         assertEquals(expected, result.getPayload());
+
+        // null image
+        Media arg2 = new Media();
+        arg2.setImage_url("");
+        arg2.setTrailer_url("https://www.youtube.com/watch?v=xsPtUNB1z-Q");
+
+        when(repository.add(arg2)).thenReturn(expected);
+        Result<Media> result2 = service.add(arg2);
+        assertEquals(ResultType.SUCCESS, result2.getType());
+        assertEquals(expected, result2.getPayload());
+
+        // null trailer
+        Media arg3 = new Media();
+        arg3.setImage_url("https://img.opencritic.com/game/13509/o/KW0nVeXe.jpg");
+        arg3.setTrailer_url("");
+
+        when(repository.add(arg3)).thenReturn(expected);
+        Result<Media> result3 = service.add(arg3);
+        assertEquals(ResultType.SUCCESS, result3.getType());
+        assertEquals(expected, result3.getPayload());
+
+        // null image & null trailer
+        Media arg4 = new Media();
+        arg4.setImage_url("");
+        arg4.setTrailer_url("");
+
+        when(repository.add(arg4)).thenReturn(expected);
+        Result<Media> result4 = service.add(arg4);
+        assertEquals(ResultType.SUCCESS, result4.getType());
+        assertEquals(expected, result4.getPayload());
     }
 
     Media makeMedia() {
