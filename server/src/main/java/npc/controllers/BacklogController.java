@@ -26,8 +26,12 @@ public class BacklogController {
     }
 
     @GetMapping("/{backlogId}")
-    public Backlog findById(@PathVariable int backlogId) {
-        return service.findById(backlogId);
+    public ResponseEntity<Backlog> findById(@PathVariable int backlogId) {
+        Backlog backlog = service.findById(backlogId);
+        if (backlog == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(backlog, HttpStatus.OK);
     }
 
     @PostMapping
@@ -54,10 +58,7 @@ public class BacklogController {
     }
 
     @DeleteMapping("/{backlogId}")
-    public ResponseEntity<Object> deleteById(@PathVariable int backlogId, @RequestBody Backlog backlog) {
-        if (backlogId != backlog.getBacklogId()) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
+    public ResponseEntity<Object> deleteById(@PathVariable int backlogId) {
         Result<Backlog> result = service.deleteById(backlogId);
         if (result.isSuccess()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

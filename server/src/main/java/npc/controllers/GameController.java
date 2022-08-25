@@ -3,6 +3,7 @@ package npc.controllers;
 import npc.domain.GameService;
 import npc.domain.Result;
 import npc.models.Game;
+import npc.models.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +27,14 @@ public class GameController {
     }
 
     @GetMapping("/{gameId}")
-    public Game findById(@PathVariable int gameId) {
-        return service.findById(gameId);
+    public ResponseEntity<Game> findById(@PathVariable int gameId) {
+        Game game = service.findById(gameId);
+        if (game == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(game, HttpStatus.OK);
     }
+
     @PostMapping
     public ResponseEntity<Object> add(@RequestBody Game game) {
         Result<Game> result = service.add(game);
