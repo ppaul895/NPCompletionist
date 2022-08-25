@@ -1,5 +1,5 @@
 # App Information
-<img src="https://lh3.googleusercontent.com/pw/AL9nZEUID41m3X4Le9RqBqhjJLGvQwNhU263-P8tmlpTZBxKuYaQw1eKuLG2JGtVLve6xZdzJu_DhUIYPhjayAhJXF5oHrvnT0BcJj3NJM97cPsyukCbFUb-_qPryFwS7wAOfwfcGUZeee09klu1K3UxJgE=w1391-h435-no" alt="NPCompletionist banner"></img>
+<img src="https://lh3.googleusercontent.com/pw/AL9nZEV_KECLTMVeOaTmvOHtPCCIIdACrZkl6Lt7DVP7O2zU1viamf0-nDx2hXbZggdhjdfhUSu-eevr1QFZF2uAgyMtT0zxVbirSyo-DxJxXhH0a7tiLdc6__8gOZ4ugz5TbZ2iG9WEMtTVwCNuWmqpTLI=w1000-h313" alt="NPCompletionist banner"></img>
 * **App Name:** NPCompletionist
 * **Description:** What's harder than NP-hard? Actually completing a video game before buying another one. NPCompletionist is a web app to search games and manage your backlog!
 
