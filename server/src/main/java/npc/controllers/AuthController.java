@@ -81,7 +81,7 @@ public class AuthController {
         } catch (ValidationException ex) {
             return new ResponseEntity<>(List.of(ex.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (DuplicateKeyException ex) {
-            return new ResponseEntity<>(List.of("The provided username already exists"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(List.of("The provided username already exists."), HttpStatus.BAD_REQUEST);
         }
 
         HashMap<String, Integer> map = new HashMap<>();
