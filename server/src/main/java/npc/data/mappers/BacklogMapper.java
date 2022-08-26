@@ -11,7 +11,7 @@ public class BacklogMapper implements RowMapper<Backlog> {
     public Backlog mapRow(ResultSet resultSet, int i) throws SQLException {
         Backlog backlog = new Backlog();
         backlog.setBacklogId(resultSet.getInt("id"));
-        backlog.setUserId(resultSet.getInt("user_id"));
+        backlog.setUserId(resultSet.getInt("app_user_id"));
         backlog.setGameId(resultSet.getInt("game_id"));
         backlog.setCompleted(resultSet.getBoolean("isCompleted"));
         backlog.setDatetimeAdded(resultSet.getTimestamp("datetime_added"));

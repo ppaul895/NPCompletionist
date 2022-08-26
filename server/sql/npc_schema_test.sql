@@ -2,15 +2,34 @@ DROP DATABASE IF EXISTS npc_test;
 CREATE DATABASE npc_test;
 USE npc_test;
 
-CREATE TABLE `user` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL UNIQUE,
-  `password` varchar(255) NOT NULL
+CREATE TABLE `app_user` (
+    `app_user_id` int PRIMARY KEY AUTO_INCREMENT,
+    `username` varchar(50) NOT NULL UNIQUE,
+    `password_hash` varchar(255) NOT NULL,
+    `disabled` bit NOT NULL DEFAULT 0
+);
+
+CREATE TABLE `app_role` (
+    `app_role_id` int PRIMARY KEY AUTO_INCREMENT,
+    `name` varchar(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE `app_user_role` (
+    `app_user_id` int NOT NULL,
+    `app_role_id` int NOT NULL,
+    constraint pk_app_user_role
+        primary key (app_user_id, app_role_id),
+    constraint fk_app_user_role_user_id
+        foreign key (app_user_id)
+        references app_user(app_user_id),
+    constraint fk_app_user_role_role_id
+        foreign key (app_role_id)
+        references app_role(app_role_id)
 );
 
 CREATE TABLE `backlog` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `user_id` int NOT NULL,
+  `app_user_id` int NOT NULL,
   `game_id` int NOT NULL,
   `isCompleted` boolean NOT NULL,
   `datetime_added` timestamp NOT NULL
@@ -44,7 +63,7 @@ CREATE TABLE `game_platform` (
 );
 
 ALTER TABLE `backlog` ADD FOREIGN KEY (`game_id`) REFERENCES `game` (`id`);
-ALTER TABLE `backlog` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+ALTER TABLE `backlog` ADD FOREIGN KEY (`app_user_id`) REFERENCES `app_user` (`app_user_id`);
 ALTER TABLE `media` ADD FOREIGN KEY (`id`) REFERENCES `game` (`media_id`);
 ALTER TABLE `game_platform` ADD FOREIGN KEY (`game_id`) REFERENCES `game` (`id`);
 ALTER TABLE `game_platform` ADD FOREIGN KEY (`platform_id`) REFERENCES `platform` (`id`);
@@ -54,8 +73,12 @@ create procedure set_known_good_state()
 begin
     delete from backlog;
     alter table backlog auto_increment = 1;
-    delete from `user`;
-    alter table `user` auto_increment = 1;
+    delete from app_user_role;
+    alter table app_user_role auto_increment = 1;
+	delete from app_role;
+    alter table app_role auto_increment = 1;
+    delete from app_user;
+    alter table app_user auto_increment = 1;
     delete from game_platform;
     alter table game_platform auto_increment = 1;
     delete from platform;
@@ -82,12 +105,21 @@ begin
         ('Nintendo 3DS'),
         ('PlayStation Vita');
 
-    insert into `user` 
-        (username, `password`) 
+insert into app_role (`name`) values
+    ('USER');
+
+-- passwords are set to "P@ssw0rd!"
+insert into app_user (username, password_hash, disabled)
     values
-        ('tester1','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa'),
-        ('tester2','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa'),
-        ('tester3','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa');
+    ('tester1', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 0),
+    ('tester2', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 0),
+    ('tester3', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 0);
+
+insert into app_user_role
+    values
+    (1, 1),
+    (2, 1),
+    (3, 1);
 
     insert into game
         (title, release_date, developer, score, media_id, genre)
@@ -105,7 +137,7 @@ begin
         ('https://img.opencritic.com/game/12088/o/AcyojAVM.jpg','https://youtube.com/watch?v=PyMlV5_HRWk');
 
     insert into backlog
-        (user_id, game_id, isCompleted, datetime_added)
+        (app_user_id, game_id, isCompleted, datetime_added)
     values
         (1, 1, false, '2022-08-22T11:36:07.230077600'),
         (1, 2, false, '2022-08-22T11:42:34.823904100'),

@@ -2,15 +2,34 @@ DROP DATABASE IF EXISTS npc_prod;
 CREATE DATABASE npc_prod;
 USE npc_prod;
 
-CREATE TABLE `user` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL UNIQUE,
-  `password` varchar(255) NOT NULL
+CREATE TABLE `app_user` (
+    `app_user_id` int PRIMARY KEY AUTO_INCREMENT,
+    `username` varchar(50) NOT NULL UNIQUE,
+    `password_hash` varchar(255) NOT NULL,
+    `disabled` bit NOT NULL DEFAULT 0
+);
+
+CREATE TABLE `app_role` (
+    `app_role_id` int PRIMARY KEY AUTO_INCREMENT,
+    `name` varchar(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE `app_user_role` (
+    `app_user_id` int NOT NULL,
+    `app_role_id` int NOT NULL,
+    constraint pk_app_user_role
+        primary key (app_user_id, app_role_id),
+    constraint fk_app_user_role_user_id
+        foreign key (app_user_id)
+        references app_user(app_user_id),
+    constraint fk_app_user_role_role_id
+        foreign key (app_role_id)
+        references app_role(app_role_id)
 );
 
 CREATE TABLE `backlog` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `user_id` int NOT NULL,
+  `app_user_id` int NOT NULL,
   `game_id` int NOT NULL,
   `isCompleted` boolean NOT NULL,
   `datetime_added` timestamp NOT NULL
@@ -44,7 +63,7 @@ CREATE TABLE `game_platform` (
 );
 
 ALTER TABLE `backlog` ADD FOREIGN KEY (`game_id`) REFERENCES `game` (`id`);
-ALTER TABLE `backlog` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+ALTER TABLE `backlog` ADD FOREIGN KEY (`app_user_id`) REFERENCES `app_user` (`app_user_id`);
 ALTER TABLE `media` ADD FOREIGN KEY (`id`) REFERENCES `game` (`media_id`);
 ALTER TABLE `game_platform` ADD FOREIGN KEY (`game_id`) REFERENCES `game` (`id`);
 ALTER TABLE `game_platform` ADD FOREIGN KEY (`platform_id`) REFERENCES `platform` (`id`);
