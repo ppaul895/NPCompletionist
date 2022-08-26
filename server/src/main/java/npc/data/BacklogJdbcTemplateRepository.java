@@ -23,13 +23,13 @@ public class BacklogJdbcTemplateRepository implements BacklogRepository {
 
     @Override
     public List<Backlog> findAll() {
-        final String sql = "select id, user_id, game_id, isCompleted, datetime_added from backlog limit 1000;";
+        final String sql = "select id, app_user_id, game_id, isCompleted, datetime_added from backlog limit 1000;";
         return jdbcTemplate.query(sql, new BacklogMapper());
     }
 
     @Override
     public Backlog findById(int backlogId) {
-        final String sql = "select id, user_id, game_id, isCompleted, datetime_added "
+        final String sql = "select id, app_user_id, game_id, isCompleted, datetime_added "
                 + "from backlog "
                 + "where id = ?;";
 
@@ -40,7 +40,7 @@ public class BacklogJdbcTemplateRepository implements BacklogRepository {
     @Override
     public Backlog add(Backlog backlog) {
 
-        final String sql = "insert into backlog (id, user_id, game_id, isCompleted, datetime_added) "
+        final String sql = "insert into backlog (id, app_user_id, game_id, isCompleted, datetime_added) "
                 + " values (?,?,?,?,?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -66,7 +66,7 @@ public class BacklogJdbcTemplateRepository implements BacklogRepository {
     public boolean update(Backlog backlog) {
 
         final String sql = "update backlog set "
-                + "user_id = ?, "
+                + "app_user_id = ?, "
                 + "game_id = ?, "
                 + "isCompleted = ?, "
                 + "datetime_added = ? "

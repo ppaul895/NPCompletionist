@@ -3,7 +3,6 @@ package npc.controllers;
 import npc.domain.GameService;
 import npc.domain.Result;
 import npc.models.Game;
-import npc.models.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

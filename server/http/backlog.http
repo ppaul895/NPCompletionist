@@ -1,21 +1,26 @@
 @url = http://localhost:8080/api/backlog
 
-# get all backlog record with aliases attached
+### [ ] Find all backlogs
 
 GET http://localhost:8080/api/backlog HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJucGMiLCJzdWIiOiJ0ZXN0ZXIxIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2NjE1NDIxODN9.rGRZV_eGNLYIYvhbHD4A10-E91WVApfEOa_HVK7456E
 
-### [ ] return backlog by id
+### [ ] Return backlog by ID
 
 GET http://localhost:8080/api/backlog/3 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJucGMiLCJzdWIiOiJ0ZXN0ZXIxIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2NjE1NDIxODN9.rGRZV_eGNLYIYvhbHD4A10-E91WVApfEOa_HVK7456E
 
-### [ ] failed return backlog by id
+### [ ] Failed return backlog by ID
+### Return a 404
 
 GET http://localhost:8080/api/backlog/200000 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJucGMiLCJzdWIiOiJ0ZXN0ZXIxIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2NjE1NDIxODN9.rGRZV_eGNLYIYvhbHD4A10-E91WVApfEOa_HVK7456E
 
-### [ ] post backlog
+### [ ] Post backlog
 
 POST http://localhost:8080/api/backlog HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJucGMiLCJzdWIiOiJ0ZXN0ZXIxIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2NjE1NDIxODN9.rGRZV_eGNLYIYvhbHD4A10-E91WVApfEOa_HVK7456E
 
 {
     "userId": 3,
@@ -24,19 +29,21 @@ Content-Type: application/json
     "completed": true
 }
 
-### [ ] return 400 if userID emty
+### [ ] Return 400 if user ID emty
 
 POST http://localhost:8080/api/backlog HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJucGMiLCJzdWIiOiJ0ZXN0ZXIxIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2NjE1NDIxODN9.rGRZV_eGNLYIYvhbHD4A10-E91WVApfEOa_HVK7456E
 
 {
 
 }
 
-### [ ] fail to post backlog if duplicate
+### [ ] Fail to post backlog if duplicate
 
 POST http://localhost:8080/api/backlog HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJucGMiLCJzdWIiOiJ0ZXN0ZXIxIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2NjE1NDIxODN9.rGRZV_eGNLYIYvhbHD4A10-E91WVApfEOa_HVK7456E
 
 {
     "backlogId": 2,
@@ -46,10 +53,11 @@ Content-Type: application/json
     "completed": false
 }
 
-### [ ] update an backlog
+### [ ] Update an backlog
 
 PUT http://localhost:8080/api/backlog/1 HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJucGMiLCJzdWIiOiJ0ZXN0ZXIxIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2NjE1NDIxODN9.rGRZV_eGNLYIYvhbHD4A10-E91WVApfEOa_HVK7456E
 
 {
     "backlogId": 1,
@@ -63,15 +71,18 @@ Content-Type: application/json
 
 PUT http://localhost:8080/api/backlog/3 HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJucGMiLCJzdWIiOiJ0ZXN0ZXIxIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2NjE1NDIxODN9.rGRZV_eGNLYIYvhbHD4A10-E91WVApfEOa_HVK7456E
 
 {
     "backlogId": 3
 }
 
-### [ ] delete backlog by id
+### [ ] Delete backlog by ID
 
 DELETE http://localhost:8080/api/backlog/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJucGMiLCJzdWIiOiJ0ZXN0ZXIxIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2NjE1NDIxODN9.rGRZV_eGNLYIYvhbHD4A10-E91WVApfEOa_HVK7456E
 
 ### [ ] 404 if backlog not found
 
 DELETE http://localhost:8080/api/backlog/200000 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJucGMiLCJzdWIiOiJ0ZXN0ZXIxIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2NjE1NDIxODN9.rGRZV_eGNLYIYvhbHD4A10-E91WVApfEOa_HVK7456E
