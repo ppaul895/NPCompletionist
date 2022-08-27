@@ -11,14 +11,13 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import Logo from "./images/logo.png";
 
 const pages = ['Featured Games', 'Contact'];
-const settings = ['Sign In'];
+let settings = ['Sign In'];
 
 
 
@@ -39,6 +38,12 @@ const ResponsiveAppBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+    if (settings[0] == 'Sign In') {
+      document.location.href="/sign-in";
+    } else {
+      //log out then:
+      document.location.href="/";
+    }
   };
 
   
