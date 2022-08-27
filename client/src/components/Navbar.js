@@ -17,7 +17,7 @@ import InputBase from '@mui/material/InputBase';
 import Logo from "./images/logo.png";
 
 const pages = ['Featured Games', 'Contact'];
-const settings = ['Sign In'];
+let settings = ['Sign In'];
 
 
 
@@ -38,6 +38,12 @@ const ResponsiveAppBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+    if (settings[0] == 'Sign In') {
+      document.location.href="/sign-in";
+    } else {
+      //log out then:
+      document.location.href="/";
+    }
   };
 
   
