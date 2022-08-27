@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Paper from '@mui/material/Paper';
 import Divider from '@mui/material/Divider';
+import Box from '@mui/material/Box';
 
 export default function Team() {
   return (
@@ -13,8 +14,17 @@ export default function Team() {
 
 
 <Divider variant="fullWidth"  ></Divider>
+<Box
+      component="footer"
+      // align="center"
+      sx={{
+        py: 10,
+        px: 2,
+        mt: 'auto',
+        backgroundColor: '',
+      }}
+    >
     <Container maxWidth="lg" align="center" sx={{
-      mb: 10,
     }}>
       
       <Typography
@@ -28,7 +38,6 @@ export default function Team() {
           fontSize: '16px',
           letterSpacing: '.2rem',
           fontWeight: '500',
-          mt: 10,
         }}
       >
         
@@ -199,6 +208,7 @@ export default function Team() {
         </Grid>
       </Grid>
     </Container>
+    </Box>
     </>
 
 
