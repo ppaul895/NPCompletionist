@@ -7,10 +7,12 @@ import CheckIcon from '@mui/icons-material/Check';
 import Button from '@mui/material/Button';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-function Home() {
 
-  return (
-    <Paper
+function LandingHeader() {
+
+	return (
+
+<Box
       sx={{
         position: 'relative',
         backgroundColor: 'grey.800',
@@ -81,12 +83,14 @@ function Home() {
                 fontFamily: 'poppins',
                 fontWeight: 300,
                 letterSpacing: '.05rem',
+                lineHeight: '1.6em',
                 color: 'inherit',
                 textDecoration: 'none',
                 fontSize: '16px',
                 maxWidth: '800px',
               }}>
-              <CheckIcon sx={{ mr: 1 }} /> Create a full backlog list<br />
+              <CheckIcon sx={{ mr: 1.5, verticalAlign: -5, }} />
+              Create a full backlog list
             </Grid>
 
             <Grid item md={11}
@@ -95,12 +99,14 @@ function Home() {
                 fontFamily: 'poppins',
                 fontWeight: 300,
                 letterSpacing: '.05rem',
+				lineHeight: '1.6em',
                 color: 'inherit',
                 textDecoration: 'none',
                 fontSize: '16px',
                 maxWidth: '800px',
               }}>
-              <CheckIcon sx={{ mr: 1 }} /> Easily organize and track your games<br />
+              <CheckIcon sx={{ mr: 1.5, verticalAlign: -5, }} />
+			  Easily organize and track your games
             </Grid>
 
             <Grid item md={11}
@@ -123,9 +129,9 @@ function Home() {
           </Box>
         </Grid>
       </Grid>
-    </Paper>
-  );
-}
-
-
-export default Home;
+    </Box>
+	  );
+	}
+	
+	
+	export default LandingHeader;
