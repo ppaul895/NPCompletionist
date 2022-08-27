@@ -1,7 +1,10 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './components/Home';
+import Home from './components/homepage/Home';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import NotFound from './components/NotFound';
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import ContactUs from './components/ContactUs';
@@ -25,10 +28,17 @@ function App() {
         <Route path="/contactus">
           <ContactUs />
         </Route>
+        <Route path="/sign-in" exact>
+          <SignIn />
+        </Route>
+        <Route path="/sign-up" exact>
+          <SignUp />
+        </Route>
         <Route>
           <NotFound />
         </Route>
       </Switch>
+      <Footer />
     </Router>
     </ThemeProvider>
   );
