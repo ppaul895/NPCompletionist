@@ -15,9 +15,12 @@ import AdbIcon from '@mui/icons-material/Adb';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
+import Logo from "./images/logo.png";
 
-const pages = ['Featured', 'Backlog'];
+const pages = ['Featured Games', 'Contact'];
 const settings = ['Sign In'];
+
+
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -37,6 +40,9 @@ const ResponsiveAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  
+
 
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -81,23 +87,34 @@ const ResponsiveAppBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-        <img src="/images/logo.png" width={32} alt=""/>
+        <Box
+            component="img"
+            sx={{
+            height: 30,
+            mr: 1,
+            display: { xs: 'none', md: 'flex' },
+            }}
+            alt="NPCompletionist"
+            src={Logo}
+        />
+
           <Typography
             variant="h6"
             noWrap
             component="a"
             href="/"
             sx={{
-              mr: 2,
+              mr: 3,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
+              fontFamily: 'roboto',
+              fontWeight: 500,
+              letterSpacing: '0rem',
               color: 'inherit',
               textDecoration: 'none',
+              fontSize: '24px',
             }}
           >
-            &nbsp;NPCompletionist
+            NPCompletionist
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -136,7 +153,19 @@ const ResponsiveAppBar = () => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+
+
+          <Box
+            component="img"
+            sx={{
+            height: 30,
+            mr: 1,
+            display: { xs: 'flex', md: 'none' },
+            }}
+            alt="NPCompletionist"
+            src={Logo}
+        />
+
           <Typography
             variant="h5"
             noWrap
@@ -146,11 +175,12 @@ const ResponsiveAppBar = () => {
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
+              fontFamily: 'roboto',
+              fontWeight: 500,
+              letterSpacing: '0rem',
               color: 'inherit',
               textDecoration: 'none',
+              fontSize: '24px',
             }}
           >
             NPC
@@ -176,6 +206,8 @@ const ResponsiveAppBar = () => {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+
+          <Button variant="contained" color="secondary" sx={{ mr: 2 }}>View Backlog</Button>
 
           <Box sx={{ flexGrow: 0 }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
