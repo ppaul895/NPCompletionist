@@ -2,9 +2,7 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import Avatar from '@mui/material/Avatar';
 import Paper from '@mui/material/Paper';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 
 
@@ -36,7 +34,7 @@ export default function Info() {
         <Grid item xs={3}>
           <Paper elevation={0} sx={{ py: 3 }}>
 
-		  <img alt="Search" src="/images/icon-search.png" align="center" width="80px"/>
+		  <img alt="Search" src="/images/icon-search.png" align="center" width="65px"/>
 		  
             <Typography
               component="h3"
@@ -74,7 +72,7 @@ export default function Info() {
         <Grid item xs={3}>
           <Paper elevation={0} sx={{ py: 3 }}>
 
-		  <img alt="Search" src="/images/icon-add.png" align="center" width="80px"/>
+		  <img alt="Search" src="/images/icon-add.png" align="center" width="65px"/>
 		  
             <Typography
               component="h3"
@@ -112,7 +110,7 @@ export default function Info() {
         <Grid item xs={3}>
           <Paper elevation={0} sx={{ py: 3 }}>
 
-		  <img alt="Search" src="/images/icon-cry.png" align="center" width="80px"/>
+		  <img alt="Search" src="/images/icon-cry.png" align="center" width="65px"/>
 		  
             <Typography
               component="h3"
@@ -151,7 +149,7 @@ export default function Info() {
 		<Grid item xs={3}>
           <Paper elevation={0} sx={{ py: 3 }}>
 
-		  <img alt="Search" src="/images/icon-controller.png" align="center" width="80px"/>
+		  <img alt="Search" src="/images/icon-controller.png" align="center" width="65px"/>
 		  
             <Typography
               component="h3"
