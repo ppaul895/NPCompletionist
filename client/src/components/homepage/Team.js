@@ -55,7 +55,7 @@ export default function Team() {
         sx={{
           fontFamily: 'poppins',
           fontWeight: '400',
-          fontSize: '14px',
+          fontSize: '16px',
           maxWidth: '800px',
         }}>
         Software developers, gamers, and overall really cool dudes.
