@@ -2,12 +2,21 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import NotFound from './components/NotFound';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 function App() {
   return (
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
     <Router>
       <Navbar />
-      <h1 className="my-4">Field Agent</h1>
       <Switch>
         <Route path="/" exact>
           <Home />
@@ -17,6 +26,7 @@ function App() {
         </Route>
       </Switch>
     </Router>
+    </ThemeProvider>
   );
 }
 
