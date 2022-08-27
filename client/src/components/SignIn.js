@@ -11,18 +11,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="/">
-        NPCompletionist
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const darkTheme = createTheme({
   palette: {
@@ -57,7 +45,7 @@ export default function SignInSide() {
             backgroundPosition: 'center'
           }}
         />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={1} square>
           <Box
             sx={{
               my: 8,
@@ -105,7 +93,6 @@ export default function SignInSide() {
               <Link href="/sign-up" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
-              <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>
         </Grid>
