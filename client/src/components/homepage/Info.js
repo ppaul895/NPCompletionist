@@ -2,9 +2,7 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import Avatar from '@mui/material/Avatar';
 import Paper from '@mui/material/Paper';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 
 
@@ -25,7 +23,7 @@ export default function Info() {
           fontWeight: '400',
         }}
       >
-        How Do I Get Started?
+        How does it work?
       </Typography>
 
       <Grid container align="center">
@@ -36,7 +34,7 @@ export default function Info() {
         <Grid item xs={3}>
           <Paper elevation={0} sx={{ py: 3 }}>
 
-		  <span class="material-symbols-outlined" >search</span>
+		  <img alt="Search" src="/images/icon-search.png" align="center" width="65px"/>
 		  
             <Typography
               component="h3"
@@ -61,14 +59,12 @@ export default function Info() {
               color="text.secondary"
               paragraph
               sx={{
-                mx: 2,
+                mx: 3,
                 fontFamily: 'poppins',
                 fontWeight: '400',
-                fontSize: '14px',
-                maxWidth: '800px',
+                fontSize: '16px',
               }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Search our database for all your backlogged games
             </Typography>
           </Paper>
         </Grid>
@@ -76,7 +72,7 @@ export default function Info() {
         <Grid item xs={3}>
           <Paper elevation={0} sx={{ py: 3 }}>
 
-		  <span class="material-symbols-outlined" >library_add</span>
+		  <img alt="Search" src="/images/icon-add.png" align="center" width="65px"/>
 		  
             <Typography
               component="h3"
@@ -101,14 +97,12 @@ export default function Info() {
               color="text.secondary"
               paragraph
               sx={{
-                mx: 2,
+                mx: 3,
                 fontFamily: 'poppins',
                 fontWeight: '400',
-                fontSize: '14px',
-                maxWidth: '800px',
+                fontSize: '16px',
               }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Add games to create your backlog list
             </Typography>
           </Paper>
         </Grid>
@@ -116,7 +110,7 @@ export default function Info() {
         <Grid item xs={3}>
           <Paper elevation={0} sx={{ py: 3 }}>
 
-		  <span class="material-symbols-outlined" >sentiment_dissatisfied</span>
+		  <img alt="Search" src="/images/icon-cry.png" align="center" width="65px"/>
 		  
             <Typography
               component="h3"
@@ -127,7 +121,7 @@ export default function Info() {
               sx={{
                 mt: 3,
                 fontFamily: 'poppins',
-                fontSize: '18px',
+                fontSize: '16px',
                 letterSpacing: '.05rem',
                 fontWeight: '400',
 				textTransform: 'uppercase',
@@ -141,14 +135,12 @@ export default function Info() {
               color="text.secondary"
               paragraph
               sx={{
-                mx: 2,
+                mx: 3,
                 fontFamily: 'poppins',
                 fontWeight: '400',
-                fontSize: '14px',
-                maxWidth: '800px',
+                fontSize: '16px',
               }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              <s>Optional</s> Cry about how long your list is
             </Typography>
           </Paper>
         </Grid>
@@ -157,7 +149,7 @@ export default function Info() {
 		<Grid item xs={3}>
           <Paper elevation={0} sx={{ py: 3 }}>
 
-		  <span class="material-symbols-outlined" >sports_esports</span>
+		  <img alt="Search" src="/images/icon-controller.png" align="center" width="65px"/>
 		  
             <Typography
               component="h3"
@@ -182,14 +174,12 @@ export default function Info() {
               color="text.secondary"
               paragraph
               sx={{
-                mx: 2,
+                mx: 3,
                 fontFamily: 'poppins',
                 fontWeight: '400',
-                fontSize: '14px',
-                maxWidth: '800px',
+                fontSize: '16px',
               }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Start gaming and working on that backlog!
             </Typography>
           </Paper>
         </Grid>

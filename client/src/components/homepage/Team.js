@@ -55,12 +55,10 @@ export default function Team() {
         sx={{
           fontFamily: 'poppins',
           fontWeight: '400',
-          fontSize: '14px',
+          fontSize: '16px',
           maxWidth: '800px',
         }}>
-        Something short and leading about the collection below—its contents,
-        the creator, etc. Make it short and sweet, but not too short so folks
-        don&apos;t simply skip over it entirely.
+        Software developers, gamers, and overall really cool dudes.
       </Typography>
 
 
@@ -72,7 +70,7 @@ export default function Team() {
 
         <Grid item xs={3}>
           <Paper elevation={0} sx={{ py: 3 }}>
-            <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg"
+            <Avatar alt="Prince Paul" src="/images/prince.png"
               align="center" sx={{
                 width: '150px',
                 height: '150px',
@@ -114,7 +112,7 @@ export default function Team() {
 
         <Grid item xs={3}>
           <Paper elevation={0} sx={{ py: 3 }}>
-            <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/3.jpg"
+          <Avatar alt="Chantell Cruz" src="/images/chantell.png"
               align="center" sx={{
                 width: '150px',
                 height: '150px',
@@ -148,15 +146,16 @@ export default function Team() {
                 fontSize: '14px',
                 maxWidth: '800px',
               }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Halo, Destiny, Minecraft, and Animal Crossing are my favorite games.<br></br><br></br>
+
+              <b>Currently trying to finish:</b> Borderlands 2.
             </Typography>
           </Paper>
         </Grid>
 
         <Grid item xs={3}>
           <Paper elevation={0} sx={{ py: 3 }}>
-            <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/1.jpg"
+          <Avatar alt="Christopher Shaw" src="/images/christopher.png"
               align="center" sx={{
                 width: '150px',
                 height: '150px',
