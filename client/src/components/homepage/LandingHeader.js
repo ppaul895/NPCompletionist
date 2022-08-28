@@ -121,7 +121,7 @@ function LandingHeader() {
                 fontSize: '16px',
                 maxWidth: '800px',
               }}>
-              <Button color="inherit" variant="outlined" size="large" href="/" sx={{ mt: 3 }}>
+              <Button color="inherit" variant="outlined" size="large" href="/sign-up" sx={{ mt: 3 }}>
                 Get Started <ChevronRightIcon sx={{ ml: 1 }} />
               </Button>
             </Grid>

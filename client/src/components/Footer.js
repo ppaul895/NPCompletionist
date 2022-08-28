@@ -19,7 +19,10 @@ function Copyright(props) {
           NPCompletionist
         </Link>{' '}
         {new Date().getFullYear()}
-        {'.'}
+        {' • Powered by '}
+        <Link color="inherit" underline="none" href="https://rawg.io/">
+        rawg.io
+        </Link>{' '}
       </Typography>
     </Box>
   );

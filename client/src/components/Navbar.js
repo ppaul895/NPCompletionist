@@ -207,12 +207,12 @@ const ResponsiveAppBar = () => {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Find games"
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
 
-          <Button variant="contained" color="secondary" sx={{ mr: 2 }}>View Backlog</Button>
+          <Button variant="contained" color="secondary" sx={{ mr: 2 }} href="/backlog">View Backlog</Button>
 
           <Box sx={{ flexGrow: 0 }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
