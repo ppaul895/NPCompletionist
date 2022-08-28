@@ -5,8 +5,7 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
-
+import Box from '@mui/material/Box';
 
 export default function Backlog() {
 
@@ -89,6 +88,18 @@ export default function Backlog() {
         </Card>
       </Grid>
 
+      <Box
+  m={1}
+  display="flex"
+  justifyContent="flex-start"
+  alignItems="flex-start"
+>
+      <Button size="large" variant="contained" align="left" color="success"  href="/featured"
+      sx={{ mt: 2, mb: 8 }}>
+        Add Games
+        </Button>
+</Box>
+
       <Typography
         component="h5"
         variant="h5"
@@ -101,28 +112,28 @@ export default function Backlog() {
           fontWeight: '400',
         }}
       >
-        Not Started
+        Completed
       </Typography>
 
       <Grid container align="center" spacing={2}>
-        <Card sx={{ maxWidth: 250, maxHeight: 300, my: 2, mx: 2 }}>
+        <Card sx={{ opacity: 0.75, filter: "grayscale(100%)", maxWidth: 250, maxHeight: 300, my: 2, mx: 2 }}>
           <CardMedia
             component="img"
             image="https://upload.wikimedia.org/wikipedia/en/thumb/2/21/Borderlands_3_cover_art.jpg/220px-Borderlands_3_cover_art.jpg"
             alt="Borderlands 3"
           />
         </Card>
-        <Card sx={{ maxWidth: 250, maxHeight: 300, my: 2, mx: 2 }}>
+        <Card sx={{ opacity: 0.75, filter: "grayscale(100%)", maxWidth: 250, maxHeight: 300, my: 2, mx: 2 }}>
           <CardMedia
             component="img"
             image="https://upload.wikimedia.org/wikipedia/en/thumb/4/4b/Unpacking_game_cover.png/220px-Unpacking_game_cover.png"
             alt="Unpacking "
+            
           />
         </Card>
       </Grid>
 
 
-      <Button size="large" variant="contained" color="success" sx={{ mt: 5 }}>Add Games</Button>
 
     </Container>
 
