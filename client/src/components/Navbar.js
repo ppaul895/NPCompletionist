@@ -212,7 +212,7 @@ const ResponsiveAppBar = () => {
             />
           </Search>
 
-          <Button variant="contained" color="secondary" sx={{ mr: 2 }} href="/backlog">View Backlog</Button>
+          <Button variant="contained" color="primary" sx={{ mr: 2 }} href="/backlog">View Backlog</Button>
 
           <Box sx={{ flexGrow: 0 }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
