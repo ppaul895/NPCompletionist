@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -15,6 +14,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import Logo from "./images/logo.png";
+
 
 const pages = ['Featured Games', 'Contact'];
 let settings = ['Sign In'];
@@ -36,9 +36,20 @@ const ResponsiveAppBar = () => {
     setAnchorElNav(null);
   };
 
+  const handleFeaturedMenu = () => {
+    setAnchorElNav(null);
+    document.location.href='/featured';
+  };
+
+  const handleContactMenu = () => {
+    setAnchorElNav(null);
+    document.location.href='/contact-us';
+  };
+
+
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-    if (settings[0] == 'Sign In') {
+    if (settings[0] === 'Sign In') {
       document.location.href="/sign-in";
     } else {
       //log out then:
@@ -152,7 +163,9 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem 
+                key={page} 
+                onClick={handleFeaturedMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -194,7 +207,7 @@ const ResponsiveAppBar = () => {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={handleContactMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page}
