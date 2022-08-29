@@ -9,6 +9,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import ContactUs from './components/ContactUs';
 import Backlog from './components/Backlog';
+import Featured from './components/Featured';
 
 const darkTheme = createTheme({
   palette: {
@@ -25,6 +26,9 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <Home />
+        </Route>
+        <Route path="/featured" exact>
+          <Featured />
         </Route>
         <Route path="/backlog">
           <Backlog />
