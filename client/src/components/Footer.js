@@ -70,7 +70,7 @@ export default function StickyFooter() {
                 Home
               </Link>
               <br></br>
-              <Link href='/' underline="none" variant="body2" color="text.secondary">
+              <Link href='/featured' underline="none" variant="body2" color="text.secondary">
                 Featured Games
               </Link>
               <br></br>

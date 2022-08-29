@@ -1,4 +1,12 @@
 import { useEffect, useState } from 'react';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Button from '@mui/material/Button';
 
 function Featured() {
     const [games, setGames] = useState([]);
@@ -76,6 +84,59 @@ function Featured() {
                     ))}
                 </tbody>
             </table>
+
+
+            <Container align="center" sx={{
+      py: 10,
+    }}>
+            <Typography
+        component="h5"
+        variant="h5"
+        align="left"
+        color="text.primary"
+        gutterBottom
+        sx={{
+          mt: 5,
+          fontFamily: 'poppins',
+          fontWeight: '400',
+        }}
+      >
+        Featured Games
+      </Typography>
+
+      
+      
+        <Grid container align="center" spacing={2}>
+        {games.map(game => (
+            <tr key={game.id}>
+        <Card sx={{ width: '250px', maxHeight: 'auto', my: 2, mx: 2 }}>
+        <CardMedia
+            component="img"
+            image={game.background_image}
+            style={{maxHeight: '130px'}}
+            alt={game.name} />
+            <CardContent>
+        <Typography gutterBottom variant="h6" component="div" align="left">
+        {game.name}
+        </Typography>
+        <Typography variant="body2" color="text.secondary"align="left">
+        <b>Release Date:</b> {game.released}<br></br>
+        {renderDevelopers(game.id)}<br></br>
+        {game.metacritic}<br></br>
+         {renderGenres(game.genres)}<br></br>
+         {renderPlatforms(game.parent_platforms)}<br></br>
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Share</Button>
+        <Button size="small">Learn More</Button>
+      </CardActions>
+            </Card></tr>
+            ))}
+            </Grid>
+                    
+                    </Container>
+        
         </>
     );
 }
