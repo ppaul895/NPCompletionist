@@ -6,7 +6,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
+
+
 
 function Featured() {
     const [games, setGames] = useState([]);
@@ -128,8 +130,7 @@ function Featured() {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+      <AddIcon />
       </CardActions>
             </Card></tr>
             ))}

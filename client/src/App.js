@@ -15,7 +15,19 @@ const darkTheme = createTheme({
   palette: {
     mode: 'dark',
   },
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        '*': {
+          'scrollbar-width': 'thin',
+        },
+        '*::-webkit-scrollbar': {
+          width: '4px',
+          height: '4px',
+        }
+      }}}
 });
+
 
 function App() {
   return (

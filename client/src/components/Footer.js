@@ -127,14 +127,14 @@ export default function StickyFooter() {
               fontSize: '13px',
               letterSpacing: '.025rem',
               opacity: '.5',
-              mb: 1,
+              mb: 2,
             }}
             >
               Follow us on social media to find out the latest updates on our progress.
             </Box>
 
             <Box>
-              <GitHubIcon sx={{ mr: 2 }} />
+            <GitHubIcon sx={{ mr: 2 }} />
               <TwitterIcon sx={{ mr: 2 }} />
               <InstagramIcon sx={{ mr: 2 }} />
             </Box>
