@@ -16,7 +16,6 @@ export default function Team() {
 <Divider variant="fullWidth"  ></Divider>
 <Box
       component="footer"
-      // align="center"
       sx={{
         py: 10,
         px: 2,
@@ -113,8 +112,10 @@ export default function Team() {
                 fontSize: '14px',
                 maxWidth: '800px',
               }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              My favorite games are CS:GO, Guild Wars 2, Star Citizen, 
+              and Minecraft.<br></br><br></br>
+
+              <b>Currently trying to finish:</b> Stardew Valley
             </Typography>
           </Paper>
         </Grid>
@@ -157,7 +158,7 @@ export default function Team() {
               }}>
               Halo, Destiny, Minecraft, and Animal Crossing are my favorite games.<br></br><br></br>
 
-              <b>Currently trying to finish:</b> Borderlands 2.
+              <b>Currently trying to finish:</b> Borderlands 2
             </Typography>
           </Paper>
         </Grid>
@@ -198,8 +199,9 @@ export default function Team() {
                 fontSize: '14px',
                 maxWidth: '800px',
               }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              I love to play Destiny 2, FIFA, Skyrim, and Minecraft.<br></br><br></br>
+
+              <b>Currently trying to finish:</b> The Last of Us 2
             </Typography>
           </Paper>
         </Grid>
@@ -210,7 +212,5 @@ export default function Team() {
     </Container>
     </Box>
     </>
-
-
   );
 }
