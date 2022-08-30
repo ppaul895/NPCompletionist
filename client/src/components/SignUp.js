@@ -58,7 +58,7 @@ export default function SignInSide() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign Up
+              Create Your Account
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
@@ -71,6 +71,9 @@ export default function SignInSide() {
                 autoComplete="username"
                 autoFocus
               />
+              <Typography variant="body2" color="text.secondary" sx={{opacity: '.8', fontSize: '12px'}} align="left">
+              Username must be less than 50 characters.
+            </Typography>
               <TextField
                 margin="normal"
                 required
@@ -81,6 +84,9 @@ export default function SignInSide() {
                 id="password"
                 autoComplete="current-password"
               />
+              <Typography variant="body2" color="text.secondary" sx={{opacity: '.8', fontSize: '12px'}} align="left">
+              Use 8 or more characters with a mix of letters, numbers and symbols.
+            </Typography>
               <Button
                 type="submit"
                 fullWidth
