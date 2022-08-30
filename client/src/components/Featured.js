@@ -10,6 +10,7 @@ import AddIcon from '@mui/icons-material/Add';
 // import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 // import Fab from '@mui/material/Fab';
+import Button from '@mui/material/Button';
 
 function Featured() {
     const [games, setGames] = useState([]);
@@ -38,7 +39,7 @@ function Featured() {
     }
 
     function renderDevelopers(id) {
-        const apiURL = `https://api.rawg.io/api/games/${id}?key=fe487707d2de401dacea3b793a51f537`;
+        const apiURL = `https://api.rawg.io/api/games/${id}?key=1f3f83a36dda4d97a9e97270a8975ecf`;
         let dev;
 
         fetch(apiURL)
@@ -84,10 +85,27 @@ function Featured() {
                                 style={{ maxHeight: '130px' }}
                                 alt={game.name} />
                             <CardContent>
-                                <Typography gutterBottom component="div" align="left" sx={{fontSize: '18px', mb: 0}}>
-                                    {game.name}
+                            <Typography align="left" sx={{ fontSize: '18px' }}>
+                                    {game.name} <Typography display="inline" align="right" sx={{
+                                        color:'#66B263', 
+                                        fontSize: "12px", 
+                                        fontWeight: 500, 
+                                        border: "1px solid #66B26380", 
+                                        px: 1, 
+                                        py:0.5,
+                                        width: '34px',
+                                        borderRadius: '5px',
+                                        ml: 1,
+                                        }}
+                                        >
+                                    {game.metacritic}
+                                    </Typography>
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary" align="left">                
+                                
+                                <Typography variant="body2" color="text.secondary" align="left">
+                                   
+                                    
+
                                     {renderDevelopers(game.id)}<br></br>
                                     {renderGenres(game.genres)} &nbsp;-&nbsp; {renderPlatforms(game.parent_platforms)}<br></br>
                                 </Typography>

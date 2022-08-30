@@ -13,3 +13,8 @@ body {
   .custom-scrollbars__content::-webkit-scrollbar {
     display: none;
   }
+
+  .MuiButtonBase-root:disabled {
+    cursor: not-allowed;
+    pointer-events: auto;
+  }
