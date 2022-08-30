@@ -7,15 +7,14 @@ import Container from '@mui/material/Container';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import AddIcon from '@mui/icons-material/Add';
-// import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-// import Fab from '@mui/material/Fab';
+import Developer from './Developer';
 
 function Featured() {
     const [games, setGames] = useState([]);
 
     useEffect(() => {
-        fetch('https://api.rawg.io/api/games?key=1f3f83a36dda4d97a9e97270a8975ecf&ordering=-metacritic&page=1')
+        fetch('https://api.rawg.io/api/games?key=1f3f83a36dda4d97a9e97270a8975ecf&ordering=-metacritic&page_size=21')
             .then(response => {
                 if (response.status === 200) {
                     return response.json();
@@ -24,7 +23,11 @@ function Featured() {
                 }
             })
             .then(data => {
-                setGames(data.results);
+                let arr = data.results;
+                const removedEl = arr.splice(1, 1);
+                setGames(arr);
+                console.log(games);
+                console.log(removedEl);
             })
             .catch(console.log);
     }, []);
@@ -33,29 +36,12 @@ function Featured() {
         return platforms.map(p => `${p.platform.name}`).join(', ');
     }
 
-    function renderGenres(genres) {
-        return genres.map(g => `${g.name}`).join(', ');
-    }
-
-    function renderDevelopers(id) {
-        const apiURL = `https://api.rawg.io/api/games/${id}?key=fe487707d2de401dacea3b793a51f537`;
-        let dev;
-
-        fetch(apiURL)
-            .then(response => {
-                if (response.status === 200) {
-                    return response.json();
-                } else {
-                    return Promise.reject(`Unexpected status code: ${response.status}`);
-                }
-            })
-            .then(data => {
-                dev = data.developers[0] ? data.developers[0].name : 'noDev';
-                console.log(dev);
-            })
-            .catch(console.log);
-        console.log(dev);
-        return dev;
+    function renderGenre(genres) {
+        if (genres.length > 1 && genres[0] === 'Action') {
+            return genres[1].name;
+        } else {
+            return genres[0].name;
+        }
     }
 
     return (
@@ -88,8 +74,8 @@ function Featured() {
                                     {game.name}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary" align="left">                
-                                    {renderDevelopers(game.id)}<br></br>
-                                    {renderGenres(game.genres)} &nbsp;-&nbsp; {renderPlatforms(game.parent_platforms)}<br></br>
+                                    {<Developer gameId={game.id} />} <br></br>
+                                    {renderGenre(game.genres)} &nbsp;-&nbsp; {renderPlatforms(game.parent_platforms)}<br></br>
                                 </Typography>
                             </CardContent>
                             <CardActions>
@@ -113,10 +99,10 @@ function Featured() {
                     <tr>
                         <th>Title</th>
                         <th>Release Date</th>
-                        <th>Developers</th>
+                        <th>Developer</th>
                         <th>Score</th>
                         <th>Image URL</th>
-                        <th>Genres</th>
+                        <th>Genre</th>
                         <th>Platforms</th>
                     </tr>
                 </thead>
@@ -125,10 +111,10 @@ function Featured() {
                         <tr key={game.id}>
                             <td>{game.name}</td>
                             <td>{game.released}</td>
-                            <td>{renderDevelopers(game.id)}</td>
+                            <td><Developer gameId={game.id} /></td>
                             <td>{game.metacritic}</td>
                             <td>{game.background_image}</td>
-                            <td>{renderGenres(game.genres)}</td>
+                            <td>{renderGenre(game.genres)}</td>
                             <td>{renderPlatforms(game.parent_platforms)}</td>
                         </tr>
                     ))}
