@@ -9,6 +9,7 @@ import CardActions from '@mui/material/CardActions';
 import AddIcon from '@mui/icons-material/Add';
 import Link from '@mui/material/Link';
 import Developer from './Developer';
+import Button from '@mui/material/Button';
 
 function Featured() {
     const [games, setGames] = useState([]);
@@ -42,7 +43,6 @@ function Featured() {
         } else {
             return genres[0].name;
         }
-    }
 
     return (
         <>
@@ -70,8 +70,21 @@ function Featured() {
                                 style={{ maxHeight: '130px' }}
                                 alt={game.name} />
                             <CardContent>
-                                <Typography gutterBottom component="div" align="left" sx={{fontSize: '18px', mb: 0}}>
-                                    {game.name}
+                            <Typography align="left" sx={{ fontSize: '18px' }}>
+                                    {game.name} <Typography display="inline" align="right" sx={{
+                                        color:'#66B263', 
+                                        fontSize: "12px", 
+                                        fontWeight: 500, 
+                                        border: "1px solid #66B26380", 
+                                        px: 1, 
+                                        py:0.5,
+                                        width: '34px',
+                                        borderRadius: '5px',
+                                        ml: 1,
+                                        }}
+                                        >
+                                    {game.metacritic}
+                                    </Typography>
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary" align="left">                
                                     {<Developer gameId={game.id} />} <br></br>
