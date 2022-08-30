@@ -1,20 +1,24 @@
 body {
-    margin: 0 !important;
-    padding: 0 !important;
-    font-family: poppins;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: poppins;
 }
 
 .custom-scrollbars__content {
-    overflow: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  
-  .custom-scrollbars__content::-webkit-scrollbar {
-    display: none;
-  }
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
 
-  .MuiButtonBase-root:disabled {
-    cursor: not-allowed;
-    pointer-events: auto;
-  }
+.custom-scrollbars__content::-webkit-scrollbar {
+  display: none;
+}
+
+.MuiCard-root {
+  display: flex;
+  flex-direction: column;
+}
+
+.MuiCardActions-root {
+  margin-top: auto;
+}
