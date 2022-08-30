@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 function Developer(props) {
-    const [dev, setDev] = useState('test');
+    const [dev, setDev] = useState('');
 
     useEffect(() => {
         const apiURL = `https://api.rawg.io/api/games/${props.gameId}?key=1f3f83a36dda4d97a9e97270a8975ecf`;

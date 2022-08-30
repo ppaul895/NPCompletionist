@@ -5,11 +5,11 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
 import AddIcon from '@mui/icons-material/Add';
-import Link from '@mui/material/Link';
+import CardActions from '@mui/material/CardActions';
 import Developer from './Developer';
-import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
 
 function Featured() {
     const [games, setGames] = useState([]);
@@ -25,24 +25,32 @@ function Featured() {
             })
             .then(data => {
                 let arr = data.results;
-                const removedEl = arr.splice(1, 1);
+                arr.splice(1, 1);
                 setGames(arr);
-                console.log(games);
-                console.log(removedEl);
             })
             .catch(console.log);
     }, []);
 
     function renderPlatforms(platforms) {
-        return platforms.map(p => `${p.platform.name}`).join(', ');
+        const platformImageSrcs = platforms.map(p => '/images/platform_icons/' + p.platform.slug + '.svg');
+        const platformNames = platforms.map(p => p.platform.name);
+        const platformInfo = [platformImageSrcs, platformNames];
+        return platformInfo;
     }
 
     function renderGenre(genres) {
-        if (genres.length > 1 && genres[0] === 'Action') {
+        if (genres.length > 1 && genres[0].name === 'Action') {
             return genres[1].name;
         } else {
             return genres[0].name;
         }
+    }
+
+    function renderDate(releaseDate) {
+        const fields = releaseDate.split('-');
+        const date = new Date(fields[0], fields[1], fields[2]);
+        return date.toLocaleDateString();
+    }
 
     return (
         <>
@@ -57,82 +65,57 @@ function Featured() {
                     gutterBottom
                     sx={{
                         mt: 5
-                    }}
-                >
+                    }}>
                     Featured Games
                 </Typography>
                 <Grid container align="center" spacing={2}>
                     {games.map(game => (
-                        <Card key={game.id} sx={{ width: '250px', maxHeight: 'auto', my: 2, mx: 2 }}>
+                        <Card key={game.id} sx={{ width: '250px', height: 'auto', my: 2, mx: 2 }}>
                             <CardMedia
                                 component="img"
                                 image={game.background_image}
                                 style={{ maxHeight: '130px' }}
                                 alt={game.name} />
-                            <CardContent>
-                            <Typography align="left" sx={{ fontSize: '18px' }}>
-                                    {game.name} <Typography display="inline" align="right" sx={{
-                                        color:'#66B263', 
-                                        fontSize: "12px", 
-                                        fontWeight: 500, 
-                                        border: "1px solid #66B26380", 
-                                        px: 1, 
-                                        py:0.5,
-                                        width: '34px',
-                                        borderRadius: '5px',
-                                        ml: 1,
-                                        }}
-                                        >
-                                    {game.metacritic}
+                            <CardContent align="left">
+                                <Box sx={{ mb: .7 }}>
+                                    <Typography display="inline" sx={{ fontSize: '18px' }}>
+                                        {game.name}
                                     </Typography>
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary" align="left">                
-                                    {<Developer gameId={game.id} />} <br></br>
-                                    {renderGenre(game.genres)} &nbsp;-&nbsp; {renderPlatforms(game.parent_platforms)}<br></br>
+                                </Box>
+                                {renderPlatforms(game.parent_platforms)[0].map(platformSrc =>
+                                    <Box key={platformSrc} display="inline" sx={{ mr: 1 }}>
+                                        <img src={platformSrc} height="18px" title={renderPlatforms(game.parent_platforms)[1]
+                                        [renderPlatforms(game.parent_platforms)[0].indexOf(platformSrc)]}></img>
+                                    </Box>
+                                )}
+                                <Typography variant="body2" color="text.secondary" align="left">
+                                    <br></br><b>Developer:</b> {<Developer gameId={game.id} />} <br></br>
+                                    <b>Release Date:</b> {renderDate(game.released)} <br></br>
+                                    <b>Genre:</b> {renderGenre(game.genres)}
                                 </Typography>
                             </CardContent>
-                            <CardActions>
-                                <Link href="/featured" align="right"><AddIcon /></Link>
+                            <CardActions sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end', p: 2 }}>
+                                <Typography display="inline" sx={{
+                                    color: '#66B263',
+                                    fontSize: "14px",
+                                    fontWeight: 500,
+                                    border: "2px solid #66B26380",
+                                    width: "32px",
+                                    height: "32px",
+                                    px: 0.75,
+                                    py: 0.5,
+                                    borderRadius: '5px'
+                                }}>
+                                    {game.metacritic}
+                                </Typography>
+                                <Fab size="small" color="primary" aria-label="add" href="/featured">
+                                    <AddIcon />
+                                </Fab>
                             </CardActions>
                         </Card>
                     ))}
                 </Grid>
             </Container>
-
-
-
-
-
-
-
-
-            <h2 className="mb-4">Games</h2>
-            <table className="table table-striped table-hover table-sm">
-                <thead className="thead-dark">
-                    <tr>
-                        <th>Title</th>
-                        <th>Release Date</th>
-                        <th>Developer</th>
-                        <th>Score</th>
-                        <th>Image URL</th>
-                        <th>Genre</th>
-                        <th>Platforms</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {games.map(game => (
-                        <tr key={game.id}>
-                            <td>{game.name}</td>
-                            <td>{game.released}</td>
-                            <td><Developer gameId={game.id} /></td>
-                            <td>{game.metacritic}</td>
-                            <td>{game.background_image}</td>
-                            <td>{renderGenre(game.genres)}</td>
-                            <td>{renderPlatforms(game.parent_platforms)}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
         </>
     );
 }
