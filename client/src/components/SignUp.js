@@ -83,7 +83,8 @@ function SignOut() {
             backgroundImage: `url(${"/images/header_portrait.jpg"})`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
-            backgroundPosition: 'center'
+            backgroundPosition: 'center',
+            opacity: '0.8',
           }}
         />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={1} square>
@@ -100,7 +101,7 @@ function SignOut() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Create An Account
+              Create Account
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField

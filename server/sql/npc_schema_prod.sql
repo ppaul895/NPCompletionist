@@ -71,16 +71,17 @@ ALTER TABLE `game_platform` ADD FOREIGN KEY (`platform_id`) REFERENCES `platform
 insert into platform 
 		(`name`) 
 values
-	('Xbox Series X/S'),
-	('PlayStation 5'),
-	('Nintendo Switch'),
 	('PC'),
-	('Google Stadia'),
-	('Xbox One'),
-	('PlayStation 4'),
-	('Oculus Rift'),
-	('PlayStation VR'),
-	('HTC Vive'),
-	('Wii U'),
-	('Nintendo 3DS'),
-	('PlayStation Vita');
+	('PlayStation'),
+	('Xbox'),
+	('iOS'),
+	('Android'),
+	('Apple Macintosh'),
+	('Linux'),
+	('Nintendo'),
+	('Atari'),
+	('Commodore / Amiga'),
+	('SEGA'),
+	('3DO'),
+	('Neo Geo'),
+	('Web');

@@ -17,18 +17,10 @@ import Featured from './components/Featured';
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
+    primary: {
+      main: '#42A5F5',
+    }
   },
-  overrides: {
-    MuiCssBaseline: {
-      '@global': {
-        '*': {
-          'scrollbar-width': 'thin',
-        },
-        '*::-webkit-scrollbar': {
-          width: '4px',
-          height: '4px',
-        }
-      }}}
 });
 
 const LOCAL_STORAGE_TOKEN_KEY = "npcToken";
@@ -61,14 +53,14 @@ function App() {
     setUser(user);
     return user;
   };
-  
+
   const logout = () => {
     setUser(null);
     localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY);
   };
-  
+
   const auth = {
-    user: user ? {...user} : null,
+    user: user ? { ...user } : null,
     login,
     logout
   };
@@ -79,36 +71,36 @@ function App() {
 
   return (
     <AuthContext.Provider value={auth}>
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-    <Router>
-      <Navbar />
-      <Switch>
-        <Route path="/" exact>
-          <Home />
-        </Route>
-        <Route path="/featured" exact>
-          <Featured />
-        </Route>
-        <Route path="/backlog">
-          <Backlog />
-        </Route>
-        <Route path="/contact-us">
-          <ContactUs />
-        </Route>
-        <Route path="/sign-in" exact>
-          <SignIn />
-        </Route>
-        <Route path="/sign-up" exact>
-          <SignUp />
-        </Route>
-        <Route>
-          <NotFound />
-        </Route>
-      </Switch>
-      <Footer />
-    </Router>
-    </ThemeProvider>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <Router>
+          <Navbar />
+          <Switch>
+            <Route path="/" exact>
+              <Home />
+            </Route>
+            <Route path="/featured" exact>
+              <Featured />
+            </Route>
+            <Route path="/backlog">
+              <Backlog />
+            </Route>
+            <Route path="/contact-us">
+              <ContactUs />
+            </Route>
+            <Route path="/sign-in" exact>
+              <SignIn />
+            </Route>
+            <Route path="/sign-up" exact>
+              <SignUp />
+            </Route>
+            <Route>
+              <NotFound />
+            </Route>
+          </Switch>
+          <Footer />
+        </Router>
+      </ThemeProvider>
     </AuthContext.Provider>
   );
 }

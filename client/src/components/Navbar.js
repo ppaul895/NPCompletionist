@@ -19,6 +19,7 @@ import Divider from '@mui/material/Divider';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import PersonIcon from '@mui/icons-material/Person';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
 const ResponsiveAppBar = () => {
@@ -159,7 +160,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               {!auth.user && (<Avatar />)}
-              {auth.user && (<Avatar alt="User Avatar" src="/images/user.png" />)}
+              {auth.user && (<Avatar alt="User Avatar" src="/images/logged_in_avatar.png" />)}
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -201,29 +202,30 @@ const ResponsiveAppBar = () => {
                   },
                 },
               }}
-              // transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-              // anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+              disableScrollLock={true}
             >
               {!auth.user && (<MenuItem key="signIn" onClick={handleSignInClick} direction="row">
-              <ListItemIcon>
-            <LoginIcon fontSize="small" />
-          </ListItemIcon> Sign In
+                <ListItemIcon>
+                  <LoginIcon fontSize="small" />
+                </ListItemIcon> Sign In
               </MenuItem>)}
               {!auth.user && (<MenuItem key="signUp" onClick={handleSignUpClick}>
-              <ListItemIcon>
-            <PersonAddAlt1Icon fontSize="small" />
-          </ListItemIcon>
-          Sign Up
+                <ListItemIcon>
+                  <PersonAddAlt1Icon fontSize="small" />
+                </ListItemIcon>
+                Sign Up
               </MenuItem>)}
               {auth.user && (<MenuItem key="usernameDisplay" disabled={true}>
-              <Avatar /> {auth.user.username}
+                <ListItemIcon>
+                  <PersonIcon fontSize="small" />
+                </ListItemIcon> {auth.user.username}
               </MenuItem>)}
               {auth.user && (<Divider />)}
               {auth.user && (<MenuItem key="logout" onClick={handleLogoutClick}>
-              <ListItemIcon>
-            <LogoutIcon fontSize="small" />
-          </ListItemIcon>
-          Logout
+                <ListItemIcon>
+                  <LogoutIcon fontSize="small" />
+                </ListItemIcon>
+                Logout
               </MenuItem>)}
             </Menu>
           </Box>

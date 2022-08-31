@@ -15,7 +15,7 @@ function Featured() {
     const [games, setGames] = useState([]);
 
     useEffect(() => {
-        fetch('https://api.rawg.io/api/games?key=1f3f83a36dda4d97a9e97270a8975ecf&ordering=-metacritic&page_size=21')
+        fetch('https://api.rawg.io/api/games?key=349a281c3d9c4c97838c1666b0c84955&ordering=-metacritic&page_size=21')
             .then(response => {
                 if (response.status === 200) {
                     return response.json();
@@ -58,14 +58,16 @@ function Featured() {
                 py: 10,
             }}>
                 <Typography
-                    component="h3"
-                    variant="h3"
-                    align="left"
+                    component="h2"
+                    variant="h2"
+                    align="center"
                     color="text.primary"
                     gutterBottom
                     sx={{
-                        mt: 5
-                    }}>
+                        fontFamily: 'poppins',
+                        fontWeight: '400',
+                    }}
+                >
                     Featured Games
                 </Typography>
                 <Grid container align="center" spacing={2}>
@@ -89,9 +91,9 @@ function Featured() {
                                     </Box>
                                 )}
                                 <Typography variant="body2" color="text.secondary" align="left">
-                                    <br></br><b>Developer:</b> {<Developer gameId={game.id} />} <br></br>
-                                    <b>Release Date:</b> {renderDate(game.released)} <br></br>
-                                    <b>Genre:</b> {renderGenre(game.genres)}
+                                    <br></br><span style={{opacity: .6}}>Developer:</span> {<Developer gameId={game.id} />} <br></br>
+                                    <span style={{opacity: .6}}>Release Date:</span> {renderDate(game.released)} <br></br>
+                                    <span style={{opacity: .6}}>Genre:</span> {renderGenre(game.genres)}
                                 </Typography>
                             </CardContent>
                             <CardActions sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end', p: 2 }}>
