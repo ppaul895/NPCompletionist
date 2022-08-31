@@ -1,4 +1,6 @@
-import * as React from 'react';
+import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -6,23 +8,42 @@ import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import Alert from '@mui/material/Alert';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 
+function SignIn() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState([]);
 
-export default function SignInSide() {
+  const auth = useContext(AuthContext);
 
-  const handleSubmit = (event) => {
+  const history = useHistory();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      username: data.get('username'),
-      password: data.get('password'),
+    const response = await fetch("http://localhost:8080/authenticate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
     });
+    if (response.status === 200) {
+      const { jwt_token } = await response.json();
+      console.log(jwt_token);
+      auth.login(jwt_token);
+      history.push("/backlog");
+    } else if (response.status === 403) {
+      setErrors(["Login failed."]);
+    } else {
+      setErrors(["Unknown error."]);
+    }
   };
-
-  // http://localhost:8080/authenticate
-
 
   return (
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -65,6 +86,7 @@ export default function SignInSide() {
                 name="username"
                 autoComplete="username"
                 autoFocus
+                onChange={(event) => setUsername(event.target.value)}
               />
               <TextField
                 margin="normal"
@@ -75,6 +97,7 @@ export default function SignInSide() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(event) => setPassword(event.target.value)}
               />
               <Button
                 type="submit"
@@ -86,10 +109,13 @@ export default function SignInSide() {
               </Button>
               <Link href="/sign-up" variant="body2">
                 {"Don't have an account? Sign Up"}
-              </Link>
+              </Link> <br></br><br></br>
+              {errors.length > 0 ? <Alert severity="error">{errors}</Alert> : ""}
             </Box>
           </Box>
         </Grid>
       </Grid>
   );
 }
+
+export default SignIn;

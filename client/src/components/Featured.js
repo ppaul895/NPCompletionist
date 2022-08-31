@@ -85,7 +85,7 @@ function Featured() {
                                 {renderPlatforms(game.parent_platforms)[0].map(platformSrc =>
                                     <Box key={platformSrc} display="inline" sx={{ mr: 1 }}>
                                         <img src={platformSrc} height="18px" title={renderPlatforms(game.parent_platforms)[1]
-                                        [renderPlatforms(game.parent_platforms)[0].indexOf(platformSrc)]}></img>
+                                        [renderPlatforms(game.parent_platforms)[0].indexOf(platformSrc)]} alt="Platform"></img>
                                     </Box>
                                 )}
                                 <Typography variant="body2" color="text.secondary" align="left">

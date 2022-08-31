@@ -1,11 +1,12 @@
 import * as React from 'react';
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-// import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -14,51 +15,42 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import Logo from "./images/logo.png";
-
-
-// const pages = ['Featured Games', 'Contact'];
-let settings = ['Sign In'];
-
-
+import Divider from '@mui/material/Divider';
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 
 const ResponsiveAppBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const auth = useContext(AuthContext);
+  const [setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleFeaturedMenu = () => {
-    setAnchorElNav(null);
-    document.location.href='/featured';
-  };
-
   const handleContactMenu = () => {
     setAnchorElNav(null);
-    document.location.href='/contact-us';
+    document.location.href = '/contact-us';
   };
-
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-    if (settings[0] === 'Sign In') {
-      document.location.href="/sign-in";
-    } else {
-      //log out then:
-      document.location.href="/";
-    }
   };
 
-  
+  const handleSignInClick = () => {
+    document.location.href = "/sign-in";
+  };
 
+  const handleSignUpClick = () => {
+    document.location.href = "/sign-up";
+  };
+
+  const handleLogoutClick = () => {
+    auth.logout();
+    document.location.href = "/";
+  };
 
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -75,7 +67,7 @@ const ResponsiveAppBar = () => {
       width: 'auto',
     },
   }));
-  
+
   const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
@@ -85,7 +77,7 @@ const ResponsiveAppBar = () => {
     alignItems: 'center',
     justifyContent: 'center',
   }));
-  
+
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
@@ -103,16 +95,16 @@ const ResponsiveAppBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-        <Box
+          <Box
             component="img"
             sx={{
-            height: 30,
-            mr: 1,
-            display: { xs: 'none', md: 'flex' },
+              height: 30,
+              mr: 1,
+              display: { xs: 'none', md: 'flex' },
             }}
             alt="NPCompletionist"
             src={Logo}
-        />
+          />
 
           <Typography
             variant="h6"
@@ -137,25 +129,25 @@ const ResponsiveAppBar = () => {
 
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            
-          <Button
-                href="/featured"
-                onClick={handleContactMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                Featured Games
-              </Button>
-              
-              <Button
-                href="/contact-us"
-                onClick={handleContactMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                Contact
-              </Button>
 
-        
-            
+            <Button
+              href="/featured"
+              onClick={handleContactMenu}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              Featured Games
+            </Button>
+
+            <Button
+              href="/contact-us"
+              onClick={handleContactMenu}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              Contact
+            </Button>
+
+
+
           </Box>
 
           <Search>
@@ -168,11 +160,12 @@ const ResponsiveAppBar = () => {
             />
           </Search>
 
-          <Button variant="contained" color="primary" sx={{ mr: 2 }} href="/backlog">View Backlog</Button>
+          {auth.user && (<Button variant="contained" color="primary" sx={{ mr: 2 }} href="/backlog">View Backlog</Button>)}
 
           <Box sx={{ flexGrow: 0 }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="User Avatar" src="/images/default_avatar.png" />
+              {!auth.user && (<Avatar alt="User Avatar" src="/images/default_avatar.png" />)}
+              {auth.user && (<Avatar alt="User Avatar" src="/images/logged_in_avatar.png" />)}
             </IconButton>
             <Menu
               sx={{ mt: '45px' }}
@@ -190,11 +183,19 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              {!auth.user && (<MenuItem key="signIn" onClick={handleSignInClick} direction="row">
+                <Typography><LoginIcon /> Sign In</Typography>
+              </MenuItem>)}
+              {!auth.user && (<MenuItem key="signUp" onClick={handleSignUpClick}>
+                <Typography><PersonAddAlt1Icon /> Sign Up</Typography>
+              </MenuItem>)}
+              {auth.user && (<MenuItem key="usernameDisplay" disabled={true}>
+                <Typography textAlign="left"><PersonIcon /> {auth.user.username}</Typography>
+              </MenuItem>)}
+              {auth.user && (<Divider />)}
+              {auth.user && (<MenuItem key="logout" onClick={handleLogoutClick}>
+                <Typography textAlign="left"><LogoutIcon /> Log Out</Typography>
+              </MenuItem>)}
             </Menu>
           </Box>
         </Toolbar>

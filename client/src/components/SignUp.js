@@ -1,4 +1,6 @@
-import * as React from 'react';
+import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,6 +11,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const darkTheme = createTheme({
@@ -18,14 +21,53 @@ const darkTheme = createTheme({
 });
 const theme = { darkTheme };
 
-export default function SignInSide() {
-  const handleSubmit = (event) => {
+function SignOut() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState([]);
+
+  const auth = useContext(AuthContext);
+
+  const history = useHistory();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+    const response = await fetch("http://localhost:8080/create_account", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
     });
+    if (response.status === 201) {
+      signIn(username, password);
+    } else if (response.status === 400) {
+      setErrors(["Sign Up failed."]);
+    } else {
+      setErrors(["Sign Up failed."]);
+    }
+  };
+
+  const signIn = async (username, password) => {
+    const response = await fetch("http://localhost:8080/authenticate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+    if (response.status === 200) {
+      const { jwt_token } = await response.json();
+      console.log(jwt_token);
+      auth.login(jwt_token);
+      history.push("/");
+    }
   };
 
   return (
@@ -58,7 +100,7 @@ export default function SignInSide() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Create Your Account
+              Create An Account
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
@@ -70,6 +112,7 @@ export default function SignInSide() {
                 name="username"
                 autoComplete="username"
                 autoFocus
+                onChange={(event) => setUsername(event.target.value)}
               />
               <Typography variant="body2" color="text.secondary" sx={{opacity: '.8', fontSize: '12px'}} align="left">
               Username must be less than 50 characters.
@@ -83,6 +126,7 @@ export default function SignInSide() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(event) => setPassword(event.target.value)}
               />
               <Typography variant="body2" color="text.secondary" sx={{opacity: '.8', fontSize: '12px'}} align="left">
               Use 8 or more characters with a mix of letters, numbers and symbols.
@@ -97,7 +141,8 @@ export default function SignInSide() {
               </Button>
               <Link href="/sign-in" variant="body2">
                 {"Already have an account? Sign In"}
-              </Link>
+              </Link> <br></br><br></br>
+              {errors.length > 0 ? <Alert severity="error">{errors}</Alert> : ""}
             </Box>
           </Box>
         </Grid>
@@ -105,3 +150,5 @@ export default function SignInSide() {
     </ThemeProvider>
   );
 }
+
+export default SignOut;

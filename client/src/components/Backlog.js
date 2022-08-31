@@ -7,83 +7,93 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useEffect, useState } from "react";
-import {useHistory, useParams} from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 const GAME_DEFAULT = {
-    "title": "",
-    "release_date": "0",
-    "developer": "",
-    "score": 0,
-    "genre": "",
-    "platform": ""
+  "title": "",
+  "release_date": "0",
+  "developer": "",
+  "score": 0,
+  "genre": "",
+  "platform": ""
 };
 
 export default function Backlog() {
+  const [backlogItems, setBacklogItems] = useState([]);
   const [games, setGames] = useState([]);
   const [game, setGame] = useState(GAME_DEFAULT);
   const [errors, setErrors] = useState([]);
   const history = useHistory();
-  const {id} = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
-      fetch('http://localhost:8080/api/game')
-          .then(response => response.json())
-          .then(data => setGames(data))
-          .catch(console.log);
+    fetch('http://localhost:8080/api/backlog')
+    .then(response => {
+      if (response.status === 200) {
+          return response.json();
+      } else {
+          return Promise.reject(`Unexpected status code: ${response.status}`);
+      }
+  })
+  .then(data => {
+      setBacklogItems(data);
+      console.log(backlogItems);
+  })
+  .catch(console.log);
   }, []);
 
 
   const handleDeleteGame = (gameId) => {
-      const game = games.find(games => games.id === gameId);
+    const game = games.find(games => games.id === gameId);
 
-      if (window.confirm(`Delete ${game.title} from your backlog?`)) {
-          const init = {
-              method: 'DELETE'
-          };
-          fetch(`http://localhost:8080/api/game/${id}`, init)
-              .then(response => {
-                  if (response.status === 204) {
-                      const newGames = games.filter(games => games.id === gameId);
-                      setGames(newGames);
-                  } else {
-                      return Promise.reject(`Unexpected Status Code: ${response.status}`);
-                  }
-              })
-              .catch(console.log);
-      }
-  };
-
-      const handleEditGame = () => {
-        game.gameId = id;
-
-        const init = {
-            method: 'PUT',
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify(game)
-        };
-    
-        fetch(`http://localhost:8080/api/game/${id}`, init)
+    if (window.confirm(`Delete ${game.title} from your backlog?`)) {
+      const init = {
+        method: 'DELETE'
+      };
+      fetch(`http://localhost:8080/api/game/${id}`, init)
         .then(response => {
-            if (response.status ===  204){
-                return null;
-            } else if (response.status === 400){
-                return response.json();
-            }else{
-                return Promise.reject(`Unexpected Status Code: ${response.status}`);
-            }
-        })
-        .then(data =>{
-            if (!data){
-                history.push(`/game`);
-// this is probably wrong url and needs to be isCompleted == true and using backlog;
-            }else{
-                setErrors(data);
-            }
+          if (response.status === 204) {
+            const newGames = games.filter(games => games.id === gameId);
+            setGames(newGames);
+          } else {
+            return Promise.reject(`Unexpected Status Code: ${response.status}`);
+          }
         })
         .catch(console.log);
+    }
+  };
+
+  const handleEditGame = () => {
+    game.gameId = id;
+
+    const init = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(game)
     };
+
+    fetch(`http://localhost:8080/api/game/${id}`, init)
+      .then(response => {
+        if (response.status === 204) {
+          return null;
+        } else if (response.status === 400) {
+          return response.json();
+        } else {
+          return Promise.reject(`Unexpected Status Code: ${response.status}`);
+        }
+      })
+      .then(data => {
+        if (!data) {
+          history.push(`/game`);
+          // this is probably wrong url and needs to be isCompleted == true and using backlog;
+        } else {
+          setErrors(data);
+        }
+      })
+      .catch(console.log);
+  };
 
 
 
@@ -120,7 +130,7 @@ export default function Backlog() {
       >
         In Progress
       </Typography>
-     
+
       <Grid container align="center" spacing={2}>
         <Card sx={{ maxWidth: 250, maxHeight: 300, my: 2, mx: 2 }}>
           <CardMedia
@@ -167,16 +177,16 @@ export default function Backlog() {
       </Grid>
 
       <Box
-  m={1}
-  display="flex"
-  justifyContent="flex-start"
-  alignItems="flex-start"
->
-      <Button size="large" variant="contained" align="left" color="success"  href="/featured"
-      sx={{ mt: 2, mb: 8 }}>
-        Add Games
+        m={1}
+        display="flex"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+      >
+        <Button size="large" variant="contained" align="left" color="success" href="/featured"
+          sx={{ mt: 2, mb: 8 }}>
+          Add Games
         </Button>
-</Box>
+      </Box>
 
       <Typography
         component="h5"
@@ -206,7 +216,7 @@ export default function Backlog() {
             component="img"
             image="https://upload.wikimedia.org/wikipedia/en/thumb/4/4b/Unpacking_game_cover.png/220px-Unpacking_game_cover.png"
             alt="Unpacking "
-            
+
           />
         </Card>
       </Grid>
