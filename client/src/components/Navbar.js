@@ -20,6 +20,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import ListItemIcon from '@mui/material/ListItemIcon';
 
 const ResponsiveAppBar = () => {
   const auth = useContext(AuthContext);
@@ -164,11 +165,12 @@ const ResponsiveAppBar = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              {!auth.user && (<Avatar alt="User Avatar" src="/images/default_avatar.png" />)}
-              {auth.user && (<Avatar alt="User Avatar" src="/images/logged_in_avatar.png" />)}
+              {/* {!auth.user && (<Avatar alt="User Avatar" src="/images/default_avatar.png" />)} */}
+              {!auth.user && (<Avatar />)}
+              {auth.user && (<Avatar alt="User Avatar" src="/images/user.png" />)}
             </IconButton>
             <Menu
-              sx={{ mt: '45px' }}
+              // sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
@@ -182,19 +184,55 @@ const ResponsiveAppBar = () => {
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: 'visible',
+                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                  mt: 1.5,
+                  '& .MuiAvatar-root': {
+                    width: 32,
+                    height: 32,
+                    ml: -0.5,
+                    mr: 1,
+                  },
+                  '&:before': {
+                    content: '""',
+                    display: 'block',
+                    position: 'absolute',
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: 'background.paper',
+                    transform: 'translateY(-50%) rotate(45deg)',
+                    zIndex: 0,
+                  },
+                },
+              }}
+              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
               {!auth.user && (<MenuItem key="signIn" onClick={handleSignInClick} direction="row">
-                <Typography><LoginIcon /> Sign In</Typography>
+              <ListItemIcon>
+            <LoginIcon fontSize="small" />
+          </ListItemIcon> Sign In
               </MenuItem>)}
               {!auth.user && (<MenuItem key="signUp" onClick={handleSignUpClick}>
-                <Typography><PersonAddAlt1Icon /> Sign Up</Typography>
+              <ListItemIcon>
+            <PersonAddAlt1Icon fontSize="small" />
+          </ListItemIcon>
+          Sign Up
               </MenuItem>)}
               {auth.user && (<MenuItem key="usernameDisplay" disabled={true}>
-                <Typography textAlign="left"><PersonIcon /> {auth.user.username}</Typography>
+              <Avatar /> {auth.user.username}
               </MenuItem>)}
               {auth.user && (<Divider />)}
               {auth.user && (<MenuItem key="logout" onClick={handleLogoutClick}>
-                <Typography textAlign="left"><LogoutIcon /> Log Out</Typography>
+              <ListItemIcon>
+            <LogoutIcon fontSize="small" />
+          </ListItemIcon>
+          Logout
               </MenuItem>)}
             </Menu>
           </Box>
