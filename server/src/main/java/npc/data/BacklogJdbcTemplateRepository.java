@@ -22,9 +22,10 @@ public class BacklogJdbcTemplateRepository implements BacklogRepository {
     }
 
     @Override
-    public List<Backlog> findAll() {
-        final String sql = "select id, app_user_id, game_id, isCompleted, datetime_added from backlog limit 1000;";
-        return jdbcTemplate.query(sql, new BacklogMapper());
+    public List<Backlog> findByUserId(int appUserId) {
+        final String sql = "select id, app_user_id, game_id, isCompleted, datetime_added " +
+                "from backlog where app_user_id = ?;";
+        return jdbcTemplate.query(sql, new BacklogMapper(), appUserId);
     }
 
     @Override

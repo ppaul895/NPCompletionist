@@ -14,8 +14,8 @@ public class BacklogService {
         this.repository = repository;
     }
 
-    public List<Backlog> findAll() {
-        return repository.findAll();
+    public List<Backlog> findByUserId(int appUserId) {
+        return repository.findByUserId(appUserId);
     }
 
     public Backlog findById(int backlogId) {
@@ -87,8 +87,8 @@ public class BacklogService {
             result.addMessage("Date Added is required.", ResultType.INVALID);
         }
 
-        for (Backlog b : repository.findAll()) {
-            if (b.getUserId() == backlog.getUserId() && b.getGameId() == backlog.getGameId()) {
+        for (Backlog b : repository.findByUserId(backlog.getUserId())) {
+            if (b.getGameId() == backlog.getGameId()) {
                 if (forUpdate && (b.getBacklogId() == backlog.getBacklogId()))
                     continue;
                 result.addMessage("Backlog game is a duplicate.", ResultType.INVALID);

@@ -20,9 +20,9 @@ public class BacklogController {
         this.service = service;
     }
 
-    @GetMapping
-    public List<Backlog> findAll() {
-        return service.findAll();
+    @GetMapping("/user-backlog/{userId}")
+    public List<Backlog> findByUserId(@PathVariable int userId) {
+        return service.findByUserId(userId);
     }
 
     @GetMapping("/{backlogId}")

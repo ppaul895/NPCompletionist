@@ -28,9 +28,9 @@ class BacklogJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindBacklog() {
-        List<Backlog> backlogs = repository.findAll();
+        List<Backlog> backlogs = repository.findByUserId(1);
         assertNotNull(backlogs);
-        assertTrue(backlogs.size() > 0);
+        assertTrue(backlogs.size() >= 3 && backlogs.size() <= 4);
     }
 
     @Test
