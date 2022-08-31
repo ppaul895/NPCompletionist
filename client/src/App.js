@@ -13,6 +13,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import ContactUs from './components/ContactUs';
 import Backlog from './components/Backlog';
 import Featured from './components/Featured';
+import Search from './components/Search';
 
 const darkTheme = createTheme({
   palette: {
@@ -49,7 +50,6 @@ function App() {
         return this.roles.includes(role);
       }
     };
-    console.log(user);
     setUser(user);
     return user;
   };
@@ -94,6 +94,7 @@ function App() {
             <Route path="/sign-up" exact>
               <SignUp />
             </Route>
+            <Route path="/search/:searchQuery" exact component={Search}/>
             <Route>
               <NotFound />
             </Route>

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import AppBar from '@mui/material/AppBar';
@@ -24,8 +24,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 
 const ResponsiveAppBar = () => {
   const auth = useContext(AuthContext);
-  const [setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -51,6 +51,12 @@ const ResponsiveAppBar = () => {
   const handleLogoutClick = () => {
     auth.logout();
     document.location.href = "/";
+  };
+
+  const keyPress = (e) => {
+    if (e.keyCode === 13) {
+      document.location.href = `/search/${e.target.value}`;
+    }
   };
 
   const Search = styled('div')(({ theme }) => ({
@@ -144,12 +150,12 @@ const ResponsiveAppBar = () => {
             </Button>
           </Box>
 
-
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
+              onKeyDown={keyPress}
               placeholder="Find games"
               inputProps={{ 'aria-label': 'search' }}
             />
