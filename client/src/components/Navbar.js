@@ -16,7 +16,6 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import Logo from "./images/logo.png";
 import Divider from '@mui/material/Divider';
-import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
@@ -127,10 +126,7 @@ const ResponsiveAppBar = () => {
           </Typography>
 
 
-
-
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-
             <Button
               href="/featured"
               onClick={handleContactMenu}
@@ -138,7 +134,6 @@ const ResponsiveAppBar = () => {
             >
               Featured Games
             </Button>
-
             <Button
               href="/contact-us"
               onClick={handleContactMenu}
@@ -146,10 +141,8 @@ const ResponsiveAppBar = () => {
             >
               Contact
             </Button>
-
-
-
           </Box>
+
 
           <Search>
             <SearchIconWrapper>
@@ -165,12 +158,10 @@ const ResponsiveAppBar = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              {/* {!auth.user && (<Avatar alt="User Avatar" src="/images/default_avatar.png" />)} */}
               {!auth.user && (<Avatar />)}
               {auth.user && (<Avatar alt="User Avatar" src="/images/user.png" />)}
             </IconButton>
             <Menu
-              // sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
@@ -189,7 +180,7 @@ const ResponsiveAppBar = () => {
                 sx: {
                   overflow: 'visible',
                   filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                  mt: 1.5,
+                  mt: 6,
                   '& .MuiAvatar-root': {
                     width: 32,
                     height: 32,
@@ -210,8 +201,8 @@ const ResponsiveAppBar = () => {
                   },
                 },
               }}
-              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+              // transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+              // anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
               {!auth.user && (<MenuItem key="signIn" onClick={handleSignInClick} direction="row">
               <ListItemIcon>
