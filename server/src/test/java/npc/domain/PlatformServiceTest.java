@@ -41,15 +41,15 @@ class PlatformServiceTest {
     private List<Platform> makePlatformList() {
         Platform p1 = new Platform();
         p1.setPlatformId(1);
-        p1.setName("Xbox Series X/S");
+        p1.setName("PC");
 
         Platform p2 = new Platform();
         p2.setPlatformId(2);
-        p2.setName("PlayStation 5");
+        p2.setName("PlayStation");
 
         Platform p3 = new Platform();
         p3.setPlatformId(3);
-        p3.setName("Nintendo Switch");
+        p3.setName("Xbox");
 
         return Arrays.asList(p1, p2, p3);
     }

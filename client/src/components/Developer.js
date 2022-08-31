@@ -4,7 +4,7 @@ function Developer(props) {
     const [dev, setDev] = useState('');
 
     useEffect(() => {
-        const apiURL = `https://api.rawg.io/api/games/${props.gameId}?key=1f3f83a36dda4d97a9e97270a8975ecf`;
+        const apiURL = `https://api.rawg.io/api/games/${props.gameId}?key=349a281c3d9c4c97838c1666b0c84955`;
         fetch(apiURL)
             .then(response => {
                 if (response.status === 200) {

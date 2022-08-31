@@ -28,17 +28,17 @@ class PlatformJdbcTemplateRepositoryTest {
     void shouldFindAll() {
         List<Platform> platforms = repository.findAll();
         assertNotNull(platforms);
-        assertEquals(13, platforms.size());
+        assertEquals(14, platforms.size());
     }
 
     @Test
     void shouldFindById() {
-        Platform xb1 = new Platform();
-        xb1.setPlatformId(6);
-        xb1.setName("Xbox One");
+        Platform mac = new Platform();
+        mac.setPlatformId(6);
+        mac.setName("Apple Macintosh");
 
         Platform actual = repository.findById(6);
-        assertEquals(xb1, actual);
+        assertEquals(mac, actual);
 
         actual = repository.findById(20);
         assertNull(actual);

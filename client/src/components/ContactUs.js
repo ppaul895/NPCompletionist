@@ -40,7 +40,7 @@ export default function ContactUs() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'grey.800' }}>
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main'}}>
             <ContactMail />
           </Avatar>
           <Typography component="h1" variant="h5">
