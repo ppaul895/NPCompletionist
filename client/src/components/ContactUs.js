@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from "react";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,27 +9,26 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { ContactMail } from '@mui/icons-material';
+import Alert from '@mui/material/Alert';
 
-  const darkTheme = createTheme({
-    palette: {
-      mode: 'dark',
-    },
-  });
-  const theme = { darkTheme };
-
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 export default function ContactUs() {
+  const [displayAlert, setDisplayAlert] = useState(false);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    var form = document.getElementById("contactForm");
+    form.reset();
+    setDisplayAlert(true);
   };
 
   return (
-    <ThemeProvider theme={theme} elevation={1}>
+    <ThemeProvider theme={darkTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -40,22 +39,22 @@ export default function ContactUs() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main'}}>
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <ContactMail />
           </Avatar>
           <Typography component="h1" variant="h5">
             Contact Us
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" id="contactForm" onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  autoComplete="given-name"
                   name="firstName"
                   required
                   fullWidth
                   id="firstName"
                   label="First Name"
+                  autoComplete="off"
                   autoFocus
                 />
               </Grid>
@@ -66,17 +65,18 @@ export default function ContactUs() {
                   id="lastName"
                   label="Last Name"
                   name="lastName"
-                  autoComplete="family-name"
+                  autoComplete="off"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
+                  type="email"
                   id="email"
                   label="Email Address"
                   name="email"
-                  autoComplete="email"
+                  autoComplete="off"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -100,10 +100,9 @@ export default function ContactUs() {
             >
               Contact Us
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-              </Grid>
-            </Grid>
+            {displayAlert && <Alert variant="outlined" severity="success">
+              Your message has been sent!
+            </Alert>} <br></br>
           </Box>
         </Box>
       </Container>

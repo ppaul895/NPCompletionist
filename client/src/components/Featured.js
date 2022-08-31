@@ -15,7 +15,7 @@ function Featured() {
     const [games, setGames] = useState([]);
 
     useEffect(() => {
-        fetch('https://api.rawg.io/api/games?key=349a281c3d9c4c97838c1666b0c84955&ordering=-metacritic&page_size=21')
+        fetch('https://api.rawg.io/api/games?key=349a281c3d9c4c97838c1666b0c84955&page_size=40')
             .then(response => {
                 if (response.status === 200) {
                     return response.json();
@@ -24,9 +24,7 @@ function Featured() {
                 }
             })
             .then(data => {
-                let arr = data.results;
-                arr.splice(1, 1);
-                setGames(arr);
+                setGames(data.results);
             })
             .catch(console.log);
     }, []);
@@ -76,7 +74,7 @@ function Featured() {
                             <CardMedia
                                 component="img"
                                 image={game.background_image}
-                                style={{ maxHeight: '130px' }}
+                                style={{ height: '130px' }}
                                 alt={game.name} />
                             <CardContent align="left">
                                 <Box sx={{ mb: .7 }}>
@@ -93,7 +91,7 @@ function Featured() {
                                 <Typography variant="body2" color="text.secondary" align="left">
                                     <br></br><span style={{opacity: .6}}>Developer:</span> {<Developer gameId={game.id} />} <br></br>
                                     <span style={{opacity: .6}}>Release Date:</span> {renderDate(game.released)} <br></br>
-                                    <span style={{opacity: .6}}>Genre:</span> {renderGenre(game.genres)}
+                                    <span style={{opacity: .6}}>Genre:</span> {game.genres.length > 0 ? renderGenre(game.genres) : "N/A"}
                                 </Typography>
                             </CardContent>
                             <CardActions sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end', p: 2 }}>
@@ -108,7 +106,7 @@ function Featured() {
                                     py: 0.5,
                                     borderRadius: '5px'
                                 }}>
-                                    {game.metacritic}
+                                    {game.metacritic ? game.metacritic : '?'}
                                 </Typography>
                                 <Fab size="small" color="primary" aria-label="add" href="/featured">
                                     <AddIcon />
