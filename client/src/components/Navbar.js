@@ -49,8 +49,8 @@ const ResponsiveAppBar = () => {
   };
 
   const handleLogoutClick = () => {
-    auth.logout();
     document.location.href = "/";
+    auth.logout();
   };
 
   const keyPress = (e) => {
