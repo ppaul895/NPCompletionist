@@ -17,7 +17,7 @@ function Developer(props) {
                 setDev(data.developers[0] ? data.developers[0].name : 'noDev');
             })
             .catch(console.log);
-    }, []);
+    }, [props.gameId]);
     return dev;
 }
 
