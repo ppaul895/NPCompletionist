@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/media", "/api/media/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/media").permitAll()
 
-                .antMatchers(HttpMethod.GET, "/api/backlog", "/api/backlog/user-backlog/*", "/api/backlog/*").hasAnyRole("USER")
+                .antMatchers(HttpMethod.GET, "/api/backlog/user-backlog/*", "/api/backlog/*").hasAnyRole("USER")
                 .antMatchers(HttpMethod.POST, "/api/backlog").hasAnyRole("USER")
                 .antMatchers(HttpMethod.PUT, "/api/backlog/*").hasAnyRole("USER")
                 .antMatchers(HttpMethod.DELETE, "/api/backlog/*").hasRole("USER")
