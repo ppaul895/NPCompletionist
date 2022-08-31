@@ -5,7 +5,7 @@ import npc.models.Backlog;
 import java.util.List;
 
 public interface BacklogRepository {
-    List<Backlog> findAll();
+    List<Backlog> findByUserId(int appUserId);
 
     Backlog findById(int backlogId);
 

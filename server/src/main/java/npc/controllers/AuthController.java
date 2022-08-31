@@ -11,9 +11,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ValidationException;
 import java.util.HashMap;
@@ -31,6 +30,11 @@ public class AuthController {
         this.authenticationManager = authenticationManager;
         this.converter = converter;
         this.appUserService = appUserService;
+    }
+
+    @GetMapping("/api/user/{username}")
+    public UserDetails findByUsername(@PathVariable String username) {
+        return appUserService.loadUserByUsername(username);
     }
 
     @PostMapping("/authenticate")

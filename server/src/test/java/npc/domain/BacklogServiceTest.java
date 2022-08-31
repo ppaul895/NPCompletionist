@@ -23,10 +23,10 @@ public class BacklogServiceTest {
     BacklogRepository repository;
 
     @Test
-    void shouldFindAll() {
+    void shouldFindByUserId() {
         List<Backlog> expected = makeBacklogList();
-        when(repository.findAll()).thenReturn(expected);
-        List<Backlog> actual = service.findAll();
+        when(repository.findByUserId(1)).thenReturn(expected);
+        List<Backlog> actual = service.findByUserId(1);
         assertEquals(expected, actual);
     }
 
@@ -66,7 +66,7 @@ public class BacklogServiceTest {
 
         // duplicate
         backlog.setDatetimeAdded(Timestamp.valueOf("2022-08-22 11:36:07"));
-        when(repository.findAll()).thenReturn(makeBacklogList());
+        when(repository.findByUserId(1)).thenReturn(makeBacklogList());
         result = service.add(backlog);
         assertEquals(ResultType.INVALID, result.getType());
 
@@ -129,7 +129,7 @@ public class BacklogServiceTest {
         backlog.setUserId(1);
         backlog.setGameId(4);
         backlog.setDatetimeAdded(Timestamp.valueOf("2022-08-22 11:36:07"));
-        when(repository.findAll()).thenReturn(makeBacklogList());
+        when(repository.findByUserId(1)).thenReturn(makeBacklogList());
         result = service.update(backlog);
         assertEquals(ResultType.INVALID, result.getType());
 
@@ -158,7 +158,7 @@ public class BacklogServiceTest {
         backlog.setCompleted(true);
         backlog.setDatetimeAdded(Timestamp.valueOf("2022-08-22 11:51:12"));
 
-        when(repository.findAll()).thenReturn(makeBacklogList());
+        when(repository.findByUserId(1)).thenReturn(makeBacklogList());
         when(repository.update(backlog)).thenReturn(true);
         Result<Backlog> result = service.update(backlog);
         assertEquals(ResultType.SUCCESS, result.getType());
@@ -200,13 +200,6 @@ public class BacklogServiceTest {
         b3.setCompleted(false);
         b3.setDatetimeAdded(Timestamp.valueOf("2022-08-22 11:58:45"));
 
-        Backlog b4 = new Backlog();
-        b4.setBacklogId(5);
-        b4.setUserId(2);
-        b4.setGameId(1);
-        b4.setCompleted(false);
-        b4.setDatetimeAdded(Timestamp.valueOf("2022-08-24 11:56:29"));
-
-        return Arrays.asList(b1, b2, b3, b4);
+        return Arrays.asList(b1, b2, b3);
     }
 }

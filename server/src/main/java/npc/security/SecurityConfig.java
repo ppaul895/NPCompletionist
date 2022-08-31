@@ -34,6 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/create_account").permitAll()
+
+                .antMatchers(HttpMethod.GET, "/api/user", "/api/user/*").permitAll()
+
                 .antMatchers(HttpMethod.GET, "/api/platform", "/api/platform/*").permitAll()
 
                 .antMatchers(HttpMethod.GET, "/api/game", "/api/game/*").permitAll()
@@ -45,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/media", "/api/media/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/media").permitAll()
 
-                .antMatchers(HttpMethod.GET, "/api/backlog", "/api/backlog/*").hasAnyRole("USER")
+                .antMatchers(HttpMethod.GET, "/api/backlog", "/api/backlog/user-backlog/*", "/api/backlog/*").hasAnyRole("USER")
                 .antMatchers(HttpMethod.POST, "/api/backlog").hasAnyRole("USER")
                 .antMatchers(HttpMethod.PUT, "/api/backlog/*").hasAnyRole("USER")
                 .antMatchers(HttpMethod.DELETE, "/api/backlog/*").hasRole("USER")

@@ -82,7 +82,7 @@ function Featured() {
                                         {game.name}
                                     </Typography>
                                 </Box>
-                                {renderPlatforms(game.parent_platforms)[0].map(platformSrc =>
+                                {game.parent_platforms && renderPlatforms(game.parent_platforms)[0].map(platformSrc =>
                                     <Box key={platformSrc} display="inline" sx={{ mr: 1 }}>
                                         <img src={platformSrc} height="18px" title={renderPlatforms(game.parent_platforms)[1]
                                         [renderPlatforms(game.parent_platforms)[0].indexOf(platformSrc)]} alt="Platform"></img>
@@ -90,7 +90,7 @@ function Featured() {
                                 )}
                                 <Typography variant="body2" color="text.secondary" align="left">
                                     <br></br><span style={{opacity: .6}}>Developer:</span> {<Developer gameId={game.id} />} <br></br>
-                                    <span style={{opacity: .6}}>Release Date:</span> {renderDate(game.released)} <br></br>
+                                    <span style={{opacity: .6}}>Release Date:</span> {game.released !== null ? renderDate(game.released) : "N/A"} <br></br>
                                     <span style={{opacity: .6}}>Genre:</span> {game.genres.length > 0 ? renderGenre(game.genres) : "N/A"}
                                 </Typography>
                             </CardContent>
