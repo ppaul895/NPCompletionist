@@ -113,11 +113,10 @@ function SignOut() {
                 name="username"
                 autoComplete="username"
                 autoFocus
+                helperText="Username must be less than 50 characters."
                 onChange={(event) => setUsername(event.target.value)}
               />
-              <Typography variant="body2" color="text.secondary" sx={{opacity: '.8', fontSize: '12px'}} align="left">
-              Username must be less than 50 characters.
-            </Typography>
+              
               <TextField
                 margin="normal"
                 required
@@ -127,11 +126,9 @@ function SignOut() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                helperText="Use 8 or more characters with a mix of letters, numbers and symbols."
                 onChange={(event) => setPassword(event.target.value)}
               />
-              <Typography variant="body2" color="text.secondary" sx={{opacity: '.8', fontSize: '12px'}} align="left">
-              Use 8 or more characters with a mix of letters, numbers and symbols.
-            </Typography>
               <Button
                 type="submit"
                 fullWidth
