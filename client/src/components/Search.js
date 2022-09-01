@@ -45,7 +45,7 @@ function Search(props) {
 
     function renderDate(releaseDate) {
         const fields = releaseDate.split('-');
-        const date = new Date(fields[0], fields[1], fields[2]);
+        const date = new Date(fields[0], fields[1] - 1, fields[2]);
         return date.toLocaleDateString();
     }
 

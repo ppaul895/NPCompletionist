@@ -36,7 +36,7 @@ class MediaJdbcTemplateRepositoryTest {
     void shouldFindById() {
         Media thisMedia = repository.findById(1);
         assertEquals(1, thisMedia.getMediaId());
-        assertEquals("https://img.opencritic.com/game/12090/o/5BXKr5S1.jpg", thisMedia.getImage_url());
+        assertEquals("https://media.rawg.io/media/games/5ec/5ecac5cb026ec26a56efcc546364e348.jpg", thisMedia.getImage_url());
         assertEquals("https://youtube.com/watch?v=UhD0_MM4fnU", thisMedia.getTrailer_url());
     }
 
@@ -50,7 +50,7 @@ class MediaJdbcTemplateRepositoryTest {
 
     private Media makeMedia() {
         Media media = new Media();
-        media.setImage_url("https://img.opencritic.com/game/13509/o/KW0nVeXe.jpg");
+        media.setImage_url("https://media.rawg.io/media/games/ab8/ab8217a1fe2ced388a388722734e6d16.jpg");
         media.setTrailer_url("https://www.youtube.com/watch?v=xsPtUNB1z-Q");
         return media;
     }
