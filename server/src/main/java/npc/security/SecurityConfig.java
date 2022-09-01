@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/backlog/user-backlog/*", "/api/backlog/*").hasAnyRole("USER")
                 .antMatchers(HttpMethod.POST, "/api/backlog").hasAnyRole("USER")
                 .antMatchers(HttpMethod.PUT, "/api/backlog/*").hasAnyRole("USER")
-                .antMatchers(HttpMethod.DELETE, "/api/backlog/*").hasRole("USER")
+                .antMatchers(HttpMethod.DELETE, "/api/backlog/*").hasAnyRole("USER")
                 .antMatchers("/**").denyAll()
                 // if we get to this point, let's deny all requests
                 .and()
