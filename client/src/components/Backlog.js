@@ -52,7 +52,9 @@ export default function Backlog() {
     for (i = 0; i < gamesArr.length; i++) {
       await fetch(`http://localhost:8080/api/media/${gamesArr[i].mediaId}`)
         .then(res => res.json())
-        .then(data => backgroundImages.push(data.image_url))
+        .then(data => {
+          backgroundImages.push(!data.image_url.startsWith("image_not_found#") ? data.image_url : "/images/game_image_not_found.jpg");
+        })
     }
 
     for (i = 0; i < gamesArr.length; i++) {
@@ -239,7 +241,7 @@ export default function Backlog() {
         <Grid container align="center" spacing={2}>
           {games.map(game => (
             <Card key={game.backlogId} sx={{ width: '250px', height: 'auto', my: 2, mx: 2 }}>
-              {!game.isCompleted ? <CardMedia
+              {game.isCompleted ? <CardMedia
                 component="img"
                 image={game.background_image}
                 style={{ height: '130px' }}
@@ -263,12 +265,12 @@ export default function Backlog() {
                 )}
                 <Typography variant="body2" color="text.secondary" align="left">
                   <br></br><span style={{ opacity: .6 }}>Developer:</span> {game.developer} <br></br>
-                  <span style={{ opacity: .6 }}>Release Date:</span> {game.releaseDate !== "" ? renderDate(game.releaseDate) : "N/A"} <br></br>
-                  <span style={{ opacity: .6 }}>Genre:</span> {game.genre !== "" ? game.genre : "N/A"}
+                  <span style={{ opacity: .6 }}>Release Date:</span> {game.releaseDate !== "1000-01-01" ? renderDate(game.releaseDate) : "N/A"} <br></br>
+                  <span style={{ opacity: .6 }}>Genre:</span> {game.genre !== "N/A" ? game.genre : "N/A"}
                 </Typography>
               </CardContent>
               <CardActions sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end', p: 2 }}>
-                {!game.score && <Typography display="inline" sx={{
+                {game.score < 0 && <Typography display="inline" sx={{
                   color: '#9e9e9e',
                   fontSize: "14px",
                   fontWeight: 500,
@@ -281,7 +283,7 @@ export default function Backlog() {
                 }}>
                   ?
                 </Typography>}
-                {game.score && game.score >= 80 && <Typography display="inline" sx={{
+                {game.score >= 80 && <Typography display="inline" sx={{
                   color: '#6DC849',
                   fontSize: "14px",
                   fontWeight: 500,
@@ -294,7 +296,7 @@ export default function Backlog() {
                 }}>
                   {game.score}
                 </Typography>}
-                {game.score && game.score >= 60 && game.score < 80 && <Typography display="inline" sx={{
+                {game.score >= 60 && game.score < 80 && <Typography display="inline" sx={{
                   color: '#FDCA52',
                   fontSize: "14px",
                   fontWeight: 500,
@@ -307,7 +309,7 @@ export default function Backlog() {
                 }}>
                   {game.score}
                 </Typography>}
-                {game.score && game.score < 60 && <Typography display="inline" sx={{
+                {game.score < 60 && game.score >= 0 && <Typography display="inline" sx={{
                   color: '#FC4B37',
                   fontSize: "14px",
                   fontWeight: 500,

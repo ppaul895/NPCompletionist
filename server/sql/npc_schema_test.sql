@@ -64,7 +64,6 @@ CREATE TABLE `game_platform` (
 
 ALTER TABLE `backlog` ADD FOREIGN KEY (`game_id`) REFERENCES `game` (`id`);
 ALTER TABLE `backlog` ADD FOREIGN KEY (`app_user_id`) REFERENCES `app_user` (`app_user_id`);
-ALTER TABLE `media` ADD FOREIGN KEY (`id`) REFERENCES `game` (`media_id`);
 ALTER TABLE `game_platform` ADD FOREIGN KEY (`game_id`) REFERENCES `game` (`id`);
 ALTER TABLE `game_platform` ADD FOREIGN KEY (`platform_id`) REFERENCES `platform` (`id`);
 
