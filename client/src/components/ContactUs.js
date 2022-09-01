@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import { ContactMail } from '@mui/icons-material';
 import Alert from '@mui/material/Alert';
 import Paper from '@mui/material/Paper';
+import Link from '@mui/material/Link';
 
 export default function ContactUs() {
   const [displayAlert, setDisplayAlert] = useState(false);
@@ -58,8 +59,11 @@ export default function ContactUs() {
             <Typography component="h1" variant="h5">
               Contact Us
             </Typography>
-            <Typography sx={{ color: "#dddddd", mt: 2 }}>
-              If you have any questions, want to report a bug, or just want to chat, fill out the contact form and we'll get back to you within 2 business days. Or feel free to email us directly at info@npcompletionist.com
+            <Typography sx={{ color: "#dddddd", mt: 2, textAlign:"center" }}>
+              Have questions, want to report a bug, or suggest a feature you want to see? Fill out the contact form and we'll get back to you within 2 business days!
+            </Typography>
+            <Typography sx={{ color: "#dddddd", mt: 1, textAlign:"center" }}>
+              You can also email us directly at <Link href="/contact-us">info@npcompletionist.com</Link>
             </Typography>
             <Box component="form" id="contactForm" onSubmit={handleSubmit} sx={{ mt: 2 }}>
               <Grid container spacing={2}>
