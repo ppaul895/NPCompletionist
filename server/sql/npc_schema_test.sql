@@ -133,9 +133,9 @@ insert into app_user_role
     insert into media
         (image_url, trailer_url)
     values
-        ('https://img.opencritic.com/game/12090/o/5BXKr5S1.jpg','https://youtube.com/watch?v=UhD0_MM4fnU'),
-        ('https://img.opencritic.com/game/13386/o/S3tnyfm8.jpg','https://www.youtube.com/watch?v=fOm_9N9ksBY'),
-        ('https://img.opencritic.com/game/12088/o/AcyojAVM.jpg','https://youtube.com/watch?v=PyMlV5_HRWk');
+        ('https://media.rawg.io/media/games/5ec/5ecac5cb026ec26a56efcc546364e348.jpg','https://youtube.com/watch?v=UhD0_MM4fnU'),
+        ('https://media.rawg.io/media/games/cd3/cd3c9c7d3e95cb1608fd6250f1b90b7a.jpg','https://www.youtube.com/watch?v=fOm_9N9ksBY'),
+        ('https://media.rawg.io/media/games/e1f/e1ffbeb1bac25b19749ad285ca29e158.jpg','https://youtube.com/watch?v=PyMlV5_HRWk');
 
     insert into backlog
         (app_user_id, game_id, isCompleted, datetime_added)

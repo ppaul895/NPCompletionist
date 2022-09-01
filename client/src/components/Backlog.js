@@ -1,31 +1,21 @@
 import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import CardContent from '@mui/material/CardContent';
+import DeleteIcon from '@mui/icons-material/Clear';
+import CardActions from '@mui/material/CardActions';
 import Box from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
+import Switch from '@mui/material/Switch';
+import FormGroup from '@mui/material/FormGroup';
+import { styled } from '@mui/material/styles';
 import { useEffect, useState, useContext } from "react";
-import { useHistory, useParams } from 'react-router-dom';
 import AuthContext from "../context/AuthContext";
 
-const GAME_DEFAULT = {
-  "title": "",
-  "release_date": "",
-  "developer": "",
-  "score": 0,
-  "genre": "",
-  "platform": ""
-};
-
 export default function Backlog() {
-  const [userId, setUserId] = useState(0);
-  const [backlog, setBacklog] = useState([]);
   const [games, setGames] = useState([]);
-  const [game, setGame] = useState(GAME_DEFAULT);
-  const [errors, setErrors] = useState([]);
-  const history = useHistory();
-  const { id } = useParams();
   const auth = useContext(AuthContext);
 
   useEffect(() => {
@@ -33,24 +23,14 @@ export default function Backlog() {
     if (!auth.user) {
       document.location.href = '/sign-in';
     }
+    fetchData();
+  }, []);
 
-    const getUserId = async (username) => {
-      const apiURL = `http://localhost:8080/api/user/${username}`;
-      fetch(apiURL)
-        .then(response => {
-          if (response.status === 200) {
-            return response.json();
-          } else {
-            return Promise.reject(`Unexpected status code: ${response.status}`);
-          }
-        })
-        .then(data => {
-          setUserId(data.appUserId);
-        })
-        .catch(console.log);
-    };
-
-    getUserId(auth.user.username);
+  const fetchData = async () => {
+    var userId;
+    await fetch(`http://localhost:8080/api/user/${auth.user.username}`)
+      .then(res => res.json())
+      .then(data => userId = data.appUserId);
 
     const init = {
       method: "GET",
@@ -58,84 +38,186 @@ export default function Backlog() {
         Authorization: `Bearer ${auth.user.token}`
       }
     };
+    var backlog = [];
+    await fetch(`http://localhost:8080/api/backlog/user-backlog/${userId}`, init)
+      .then(res => res.json())
+      .then(data => backlog = data);
 
-    fetch(`http://localhost:8080/api/backlog/user-backlog/${userId}`, init)
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          return Promise.reject(`Unexpected status code: ${response.status}`);
-        }
-      })
-      .then(data => {
-        setBacklog(data);
-      })
-      .catch(console.log);
-  }, [userId]);
+    var gamesArr = [];
+    for (var i = 0; i < backlog.length; i++) {
+      await fetch(`http://localhost:8080/api/game/${backlog[i].gameId}`)
+        .then(res => res.json())
+        .then(data => gamesArr.push(data));
+    }
 
-  // const handleDeleteGame = (gameId) => {
-  //   const game = games.find(games => games.id === gameId);
+    var backgroundImages = [];
+    for (i = 0; i < gamesArr.length; i++) {
+      await fetch(`http://localhost:8080/api/media/${gamesArr[i].mediaId}`)
+        .then(res => res.json())
+        .then(data => backgroundImages.push(data.image_url))
+    }
+    for (i = 0; i < gamesArr.length; i++) {
+      gamesArr[i] = { ...gamesArr[i], background_image: backgroundImages[i], isCompleted: backlog[i].completed };
+    }
 
-  //   if (window.confirm(`Delete ${game.title} from your backlog?`)) {
-  //     const init = {
-  //       method: 'DELETE'
-  //     };
-  //     fetch(`http://localhost:8080/api/game/${id}`, init)
-  //       .then(response => {
-  //         if (response.status === 204) {
-  //           const newGames = games.filter(games => games.id === gameId);
-  //           setGames(newGames);
-  //         } else {
-  //           return Promise.reject(`Unexpected Status Code: ${response.status}`);
-  //         }
-  //       })
-  //       .catch(console.log);
-  //   }
-  // };
+    setGames(gamesArr);
+    console.log(games);
+  }
 
-  // const handleEditGame = () => {
-  //   game.gameId = id;
+  function renderDate(releaseDate) {
+    const fields = releaseDate.split('-');
+    const date = new Date(fields[0], fields[1] - 1, fields[2]);
+    return date.toLocaleDateString();
+  }
 
-  //   const init = {
-  //     method: 'PUT',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(game)
-  //   };
+  function renderPlatforms(platforms) {
+    const platformImageSrcs = [];
+    for (var i = 0; i < platforms.length; i++) {
+      var slug;
+      switch(platforms[i].platformId) {
+        case 1 : slug = "pc"; break;
+        case 2 : slug = "playstation"; break;
+        case 3 : slug = "xbox"; break;
+        case 4 : slug = "ios"; break;
+        case 5 : slug = "android"; break;
+        case 6 : slug = "mac"; break;
+        case 7 : slug = "linux"; break;
+        case 8 : slug = "nintendo"; break;
+        case 9 : slug = "atari"; break;
+        case 10 : slug = "commodore-amiga"; break;
+        case 11 : slug = "sega"; break;
+        case 12 : slug = "3do"; break;
+        case 13 : slug = "neo-geo"; break;
+        case 14 : slug = "web"; break;
+        default : slug = "";
+      }
+      platformImageSrcs.push('/images/platform_icons/' + slug + '.svg');
+    }
+    const platformNames = platforms.map(p => p.name);
+    const platformInfo = [platformImageSrcs, platformNames];
+    return platformInfo;
+}
 
-  //   fetch(`http://localhost:8080/api/game/${id}`, init)
-  //     .then(response => {
-  //       if (response.status === 204) {
-  //         return null;
-  //       } else if (response.status === 400) {
-  //         return response.json();
-  //       } else {
-  //         return Promise.reject(`Unexpected Status Code: ${response.status}`);
-  //       }
-  //     })
-  //     .then(data => {
-  //       if (!data) {
-  //         history.push(`/game`);
-  //         // this is probably wrong url and needs to be isCompleted == true and using backlog;
-  //       } else {
-  //         setErrors(data);
-  //       }
-  //     })
-  //     .catch(console.log);
-  // };
+  const IOSSwitch = styled((props) => (
+    <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
+  ))(({ theme }) => ({
+    width: 42,
+    height: 26,
+    padding: 0,
+    '& .MuiSwitch-switchBase': {
+      padding: 0,
+      margin: 2,
+      transitionDuration: '300ms',
+      '&.Mui-checked': {
+        transform: 'translateX(16px)',
+        color: '#fff',
+        '& + .MuiSwitch-track': {
+          backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
+          opacity: 1,
+          border: 0,
+        },
+        '&.Mui-disabled + .MuiSwitch-track': {
+          opacity: 0.5,
+        },
+      },
+      '&.Mui-focusVisible .MuiSwitch-thumb': {
+        color: '#33cf4d',
+        border: '6px solid #fff',
+      },
+      '&.Mui-disabled .MuiSwitch-thumb': {
+        color:
+          theme.palette.mode === 'light'
+            ? theme.palette.grey[100]
+            : theme.palette.grey[600],
+      },
+      '&.Mui-disabled + .MuiSwitch-track': {
+        opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
+      },
+    },
+    '& .MuiSwitch-thumb': {
+      boxSizing: 'border-box',
+      width: 22,
+      height: 22,
+    },
+    '& .MuiSwitch-track': {
+      borderRadius: 26 / 2,
+      backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
+      opacity: 1,
+      transition: theme.transitions.create(['background-color'], {
+        duration: 500,
+      }),
+    },
+  }));
 
   return (
     <>
-      {backlog.map(b => (
-        <div key={b.backlogId}>
-          <p>backlogId: {b.backlogId}</p>
-          <p>userId: {b.userId}</p>
-          <p>gameid: {b.gameId}</p>
-          <p>datetimeAddedid: {b.datetimeAdded}</p>
-          <p>isCompleted: {b.completed ? "yes" : "no"}</p>
-        </div>
-      ))}
+      <Container align="center" sx={{
+        py: 10,
+      }}>
+        <Typography
+          component="h2"
+          variant="h2"
+          align="center"
+          color="text.primary"
+          gutterBottom
+          sx={{
+            fontFamily: 'poppins',
+            fontWeight: '400',
+          }}
+        >
+          Your Backlog
+        </Typography>
+        <Grid container align="center" spacing={2}>
+          {games.map(game => (
+            <Card key={game.gameId} sx={{ width: '250px', height: 'auto', my: 2, mx: 2 }}>
+              <CardMedia
+                component="img"
+                image={game.background_image}
+                style={{ height: '130px' }}
+                alt={game.title} />
+              <CardContent align="left">
+                <Box sx={{ mb: .7 }}>
+                  <Typography display="inline" sx={{ fontSize: '18px' }}>
+                    {game.title}
+                  </Typography>
+                </Box>
+                {game.platforms && renderPlatforms(game.platforms)[0].map(platformSrc =>
+                  <Box key={platformSrc} display="inline" sx={{ mr: 1 }}>
+                    <img src={platformSrc} height="18px" title={renderPlatforms(game.platforms)[1]
+                    [renderPlatforms(game.platforms)[0].indexOf(platformSrc)]} alt="Platform"></img>
+                  </Box>
+                )}
+                <Typography variant="body2" color="text.secondary" align="left">
+                  <br></br><span style={{ opacity: .6 }}>Developer:</span> {game.developer} <br></br>
+                  <span style={{ opacity: .6 }}>Release Date:</span> {game.releaseDate !== "" ? renderDate(game.releaseDate) : "N/A"} <br></br>
+                  <span style={{ opacity: .6 }}>Genre:</span> {game.genre !== "" ? game.genre : "N/A"}
+                </Typography>
+              </CardContent>
+              <CardActions sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end', p: 2 }}>
+                <Typography display="inline" sx={{
+                  color: '#66B263',
+                  fontSize: "14px",
+                  fontWeight: 500,
+                  border: "2px solid #66B26380",
+                  width: "32px",
+                  height: "32px",
+                  px: 0.75,
+                  py: 0.5,
+                  borderRadius: '5px'
+                }}>
+                  {game.score !== 0 ? game.score : '?'}
+                </Typography>
+                <FormGroup>
+                  {<IOSSwitch sx={{ m: .3 }} checked={game.isCompleted} />}
+                </FormGroup>
+                <Fab size="small" color="error" aria-label="delete" href="/backlog">
+                  <DeleteIcon />
+                </Fab>
+              </CardActions>
+            </Card>
+          ))}
+        </Grid>
+      </Container>
     </>
   );
 }
