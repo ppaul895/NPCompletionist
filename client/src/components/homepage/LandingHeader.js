@@ -6,12 +6,10 @@ import CheckIcon from '@mui/icons-material/Check';
 import Button from '@mui/material/Button';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-
 function LandingHeader() {
 
-	return (
-
-<Box
+  return (
+    <Box
       sx={{
         position: 'relative',
         backgroundColor: 'grey.800',
@@ -23,7 +21,6 @@ function LandingHeader() {
         minHeight: '400px',
       }}
     >
-
       <Box
         sx={{
           position: 'absolute',
@@ -35,7 +32,6 @@ function LandingHeader() {
         }}
       />
       <Grid container>
-
         <Grid item md={8}>
           <Box
             sx={{
@@ -59,7 +55,6 @@ function LandingHeader() {
               }}>
               Stop putting off your gaming backlog.
             </Typography>
-
             <Grid item md={11}>
               <Typography variant="h5" color="inherit" paragraph
                 sx={{
@@ -75,7 +70,6 @@ function LandingHeader() {
                 What's harder than NP-hard? Actually completing a video game before buying another one. NPCompletionist is a web app to search games and manage your backlog!
               </Typography>
             </Grid>
-
             <Grid item md={11}
               sx={{
                 ml: { xs: 2, md: 10, lg: 25, xl: 25 },
@@ -98,16 +92,15 @@ function LandingHeader() {
                 fontFamily: 'poppins',
                 fontWeight: 300,
                 letterSpacing: '.05rem',
-				lineHeight: '1.6em',
+                lineHeight: '1.6em',
                 color: 'inherit',
                 textDecoration: 'none',
                 fontSize: '16px',
                 maxWidth: '800px',
               }}>
               <CheckIcon sx={{ mr: 1.5, verticalAlign: -5, }} />
-			  Easily organize and track your games
+              Easily organize and track your games
             </Grid>
-
             <Grid item md={11}
               sx={{
                 ml: { xs: 2, md: 10, lg: 25, xl: 25 },
@@ -124,13 +117,11 @@ function LandingHeader() {
                 Get Started <ChevronRightIcon sx={{ ml: 1 }} />
               </Button>
             </Grid>
-
           </Box>
         </Grid>
       </Grid>
     </Box>
-	  );
-	}
-	
-	
-	export default LandingHeader;
+  );
+}
+
+export default LandingHeader;

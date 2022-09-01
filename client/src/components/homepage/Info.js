@@ -4,11 +4,8 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 
-
-
 export default function Info() {
   return (
-
     <Container align="center" sx={{
       py: 10,
     }}>
@@ -25,17 +22,10 @@ export default function Info() {
       >
         How does it work?
       </Typography>
-
       <Grid container align="center">
-
-
-
-
         <Grid item xs={3}>
           <Paper elevation={0} sx={{ py: 3 }}>
-
-		  <img alt="Search" src="/images/icon-search.png" align="center" width="65px"/>
-		  
+            <img alt="Search" src="/images/icon-search.png" align="center" width="65px" />
             <Typography
               component="h3"
               variant="h6"
@@ -48,7 +38,7 @@ export default function Info() {
                 fontSize: '18px',
                 letterSpacing: '.05rem',
                 fontWeight: '400',
-				textTransform: 'uppercase',
+                textTransform: 'uppercase',
               }}
             >
               Step One
@@ -68,12 +58,9 @@ export default function Info() {
             </Typography>
           </Paper>
         </Grid>
-
         <Grid item xs={3}>
           <Paper elevation={0} sx={{ py: 3 }}>
-
-		  <img alt="Search" src="/images/icon-add.png" align="center" width="65px"/>
-		  
+            <img alt="Search" src="/images/icon-add.png" align="center" width="65px" />
             <Typography
               component="h3"
               variant="h6"
@@ -86,7 +73,7 @@ export default function Info() {
                 fontSize: '18px',
                 letterSpacing: '.05rem',
                 fontWeight: '400',
-				textTransform: 'uppercase',
+                textTransform: 'uppercase',
               }}
             >
               Step Two
@@ -106,12 +93,9 @@ export default function Info() {
             </Typography>
           </Paper>
         </Grid>
-
         <Grid item xs={3}>
           <Paper elevation={0} sx={{ py: 3 }}>
-
-		  <img alt="Search" src="/images/icon-cry.png" align="center" width="65px"/>
-		  
+            <img alt="Search" src="/images/icon-cry.png" align="center" width="65px" />
             <Typography
               component="h3"
               variant="h6"
@@ -124,7 +108,7 @@ export default function Info() {
                 fontSize: '16px',
                 letterSpacing: '.05rem',
                 fontWeight: '400',
-				textTransform: 'uppercase',
+                textTransform: 'uppercase',
               }}
             >
               Step Three
@@ -144,13 +128,9 @@ export default function Info() {
             </Typography>
           </Paper>
         </Grid>
-
-
-		<Grid item xs={3}>
+        <Grid item xs={3}>
           <Paper elevation={0} sx={{ py: 3 }}>
-
-		  <img alt="Search" src="/images/icon-controller.png" align="center" width="65px"/>
-		  
+            <img alt="Search" src="/images/icon-controller.png" align="center" width="65px" />
             <Typography
               component="h3"
               variant="h6"
@@ -163,7 +143,7 @@ export default function Info() {
                 fontSize: '18px',
                 letterSpacing: '.05rem',
                 fontWeight: '400',
-				textTransform: 'uppercase',
+                textTransform: 'uppercase',
               }}
             >
               Step Four
@@ -183,11 +163,7 @@ export default function Info() {
             </Typography>
           </Paper>
         </Grid>
-        
-		
       </Grid>
     </Container>
-
-
   );
 }
