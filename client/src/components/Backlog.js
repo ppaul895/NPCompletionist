@@ -180,7 +180,7 @@ export default function Backlog() {
         transform: 'translateX(16px)',
         color: '#fff',
         '& + .MuiSwitch-track': {
-          backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
+          backgroundColor: theme.palette.mode === 'dark' ? '#edad00' : '#edad00',
           opacity: 1,
           border: 0,
         },
@@ -203,6 +203,7 @@ export default function Backlog() {
       },
     },
     '& .MuiSwitch-thumb': {
+      color: '#fff',
       boxSizing: 'border-box',
       width: 22,
       height: 22,
@@ -242,12 +243,12 @@ export default function Backlog() {
                 component="img"
                 image={game.background_image}
                 style={{ height: '130px' }}
-                alt={game.title} /> : 
-              <CardMedia
-                component="img"
-                image={game.background_image}
-                style={{ height: '130px', filter: "grayscale(100%)", opacity: '0.8'}}
-                alt={game.title} /> }
+                alt={game.title} /> :
+                <CardMedia
+                  component="img"
+                  image={game.background_image}
+                  style={{ height: '130px', filter: "grayscale(100%)", opacity: '0.8' }}
+                  alt={game.title} />}
               <CardContent align="left">
                 <Box sx={{ mb: .7 }}>
                   <Typography display="inline" sx={{ fontSize: '18px' }}>
@@ -267,19 +268,58 @@ export default function Backlog() {
                 </Typography>
               </CardContent>
               <CardActions sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end', p: 2 }}>
-                <Typography display="inline" sx={{
-                  color: '#66B263',
+                {!game.score && <Typography display="inline" sx={{
+                  color: '#9e9e9e',
                   fontSize: "14px",
                   fontWeight: 500,
-                  border: "2px solid #66B26380",
+                  border: "2px solid #9e9e9e80",
                   width: "32px",
                   height: "32px",
                   px: 0.75,
                   py: 0.5,
                   borderRadius: '5px'
                 }}>
-                  {game.score !== 0 ? game.score : '?'}
-                </Typography>
+                  ?
+                </Typography>}
+                {game.score && game.score >= 80 && <Typography display="inline" sx={{
+                  color: '#6DC849',
+                  fontSize: "14px",
+                  fontWeight: 500,
+                  border: "2px solid #6DC84980",
+                  width: "32px",
+                  height: "32px",
+                  px: 0.75,
+                  py: 0.5,
+                  borderRadius: '5px'
+                }}>
+                  {game.score}
+                </Typography>}
+                {game.score && game.score >= 60 && game.score < 80 && <Typography display="inline" sx={{
+                  color: '#FDCA52',
+                  fontSize: "14px",
+                  fontWeight: 500,
+                  border: "2px solid #FDCA5280",
+                  width: "32px",
+                  height: "32px",
+                  px: 0.75,
+                  py: 0.5,
+                  borderRadius: '5px'
+                }}>
+                  {game.score}
+                </Typography>}
+                {game.score && game.score < 60 && <Typography display="inline" sx={{
+                  color: '#FC4B37',
+                  fontSize: "14px",
+                  fontWeight: 500,
+                  border: "2px solid #FC4B3780",
+                  width: "32px",
+                  height: "32px",
+                  px: 0.75,
+                  py: 0.5,
+                  borderRadius: '5px'
+                }}>
+                  {game.score}
+                </Typography>}
                 {<IOSSwitch sx={{ m: .3 }} defaultChecked={game.isCompleted}
                   onChange={() => updateBacklogItem(game.backlogId, game.userId, game.gameId, game.datetimeAdded, !game.isCompleted)} />}
                 <Fab size="small" color="error" aria-label="delete" onClick={() => deleteBacklogItem(game.backlogId)}>

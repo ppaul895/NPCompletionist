@@ -89,25 +89,64 @@ function Featured() {
                                     </Box>
                                 )}
                                 <Typography variant="body2" color="text.secondary" align="left">
-                                    <br></br><span style={{opacity: .6}}>Developer:</span> {<Developer gameId={game.id} />} <br></br>
-                                    <span style={{opacity: .6}}>Release Date:</span> {game.released !== null ? renderDate(game.released) : "N/A"} <br></br>
-                                    <span style={{opacity: .6}}>Genre:</span> {game.genres.length > 0 ? renderGenre(game.genres) : "N/A"}
+                                    <br></br><span style={{ opacity: .6 }}>Developer:</span> {<Developer gameId={game.id} />} <br></br>
+                                    <span style={{ opacity: .6 }}>Release Date:</span> {game.released !== null ? renderDate(game.released) : "N/A"} <br></br>
+                                    <span style={{ opacity: .6 }}>Genre:</span> {game.genres.length > 0 ? renderGenre(game.genres) : "N/A"}
                                 </Typography>
                             </CardContent>
                             <CardActions sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end', p: 2 }}>
-                                <Typography display="inline" sx={{
-                                    color: '#66B263',
+                                {!game.metacritic && <Typography display="inline" sx={{
+                                    color: '#9e9e9e',
                                     fontSize: "14px",
                                     fontWeight: 500,
-                                    border: "2px solid #66B26380",
+                                    border: "2px solid #9e9e9e80",
                                     width: "32px",
                                     height: "32px",
                                     px: 0.75,
                                     py: 0.5,
                                     borderRadius: '5px'
                                 }}>
-                                    {game.metacritic ? game.metacritic : '?'}
-                                </Typography>
+                                    ?
+                                </Typography>}
+                                {game.metacritic && game.metacritic >= 80 && <Typography display="inline" sx={{
+                                    color: '#6DC849',
+                                    fontSize: "14px",
+                                    fontWeight: 500,
+                                    border: "2px solid #6DC84980",
+                                    width: "32px",
+                                    height: "32px",
+                                    px: 0.75,
+                                    py: 0.5,
+                                    borderRadius: '5px'
+                                }}>
+                                    {game.metacritic}
+                                </Typography>}
+                                {game.metacritic && game.metacritic >= 60 && game.metacritic < 80 && <Typography display="inline" sx={{
+                                    color: '#FDCA52',
+                                    fontSize: "14px",
+                                    fontWeight: 500,
+                                    border: "2px solid #FDCA5280",
+                                    width: "32px",
+                                    height: "32px",
+                                    px: 0.75,
+                                    py: 0.5,
+                                    borderRadius: '5px'
+                                }}>
+                                    {game.metacritic}
+                                </Typography>}
+                                {game.metacritic && game.metacritic < 60 && <Typography display="inline" sx={{
+                                    color: '#FC4B37',
+                                    fontSize: "14px",
+                                    fontWeight: 500,
+                                    border: "2px solid #FC4B3780",
+                                    width: "32px",
+                                    height: "32px",
+                                    px: 0.75,
+                                    py: 0.5,
+                                    borderRadius: '5px'
+                                }}>
+                                    {game.metacritic}
+                                </Typography>}
                                 <Fab size="small" color="primary" aria-label="add" href="/featured">
                                     <AddIcon />
                                 </Fab>
