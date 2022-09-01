@@ -7,13 +7,11 @@ import Team from './Team';
 function Home() {
 
   return (
-
     <Router>
       <LandingHeader />
       <Info />
       <Team />
       </Router>
-
   );
 }
 

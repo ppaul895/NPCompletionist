@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
@@ -12,16 +11,8 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
-const theme = { darkTheme };
-
-function SignOut() {
+function SignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
@@ -71,16 +62,14 @@ function SignOut() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
-        <CssBaseline />
         <Grid
           item
           xs={false}
           sm={4}
           md={7}
           sx={{
-            backgroundImage: `url(${"/images/header_portrait.jpg"})`,
+            backgroundImage: `url(${"/images/sign-up.jpg"})`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -113,11 +102,10 @@ function SignOut() {
                 name="username"
                 autoComplete="username"
                 autoFocus
+                helperText="Username must be less than 50 characters."
                 onChange={(event) => setUsername(event.target.value)}
               />
-              <Typography variant="body2" color="text.secondary" sx={{opacity: '.8', fontSize: '12px'}} align="left">
-              Username must be less than 50 characters.
-            </Typography>
+              
               <TextField
                 margin="normal"
                 required
@@ -127,11 +115,9 @@ function SignOut() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                helperText="Use 8 or more characters with a mix of letters, numbers and symbols."
                 onChange={(event) => setPassword(event.target.value)}
               />
-              <Typography variant="body2" color="text.secondary" sx={{opacity: '.8', fontSize: '12px'}} align="left">
-              Use 8 or more characters with a mix of letters, numbers and symbols.
-            </Typography>
               <Button
                 type="submit"
                 fullWidth
@@ -148,8 +134,7 @@ function SignOut() {
           </Box>
         </Grid>
       </Grid>
-    </ThemeProvider>
   );
 }
 
-export default SignOut;
+export default SignUp;
