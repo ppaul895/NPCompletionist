@@ -9,7 +9,6 @@ import CardActions from '@mui/material/CardActions';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import Switch from '@mui/material/Switch';
-import FormGroup from '@mui/material/FormGroup';
 import { styled } from '@mui/material/styles';
 import { useEffect, useState, useContext } from "react";
 import AuthContext from "../context/AuthContext";
@@ -19,7 +18,6 @@ export default function Backlog() {
   const auth = useContext(AuthContext);
 
   useEffect(() => {
-    console.log("useEffect called");
     if (!auth.user) {
       document.location.href = '/sign-in';
     }
@@ -56,13 +54,83 @@ export default function Backlog() {
         .then(res => res.json())
         .then(data => backgroundImages.push(data.image_url))
     }
+
     for (i = 0; i < gamesArr.length; i++) {
-      gamesArr[i] = { ...gamesArr[i], background_image: backgroundImages[i], isCompleted: backlog[i].completed };
+      gamesArr[i] = {
+        ...gamesArr[i], background_image: backgroundImages[i],
+        isCompleted: backlog[i].completed, backlogId: backlog[i].backlogId,
+        userId: userId, datetimeAdded: backlog[i].datetimeAdded
+      };
     }
 
     setGames(gamesArr);
-    console.log(games);
   }
+
+  const updateBacklogItem = (backlogId, userId, gameId, datetimeAdded, completed) => {
+    const updatedBacklogItem = {
+      backlogId: backlogId,
+      userId: userId,
+      gameId: gameId,
+      datetimeAdded: datetimeAdded,
+      completed: completed
+    }
+    const init = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.user.token}`
+      },
+      body: JSON.stringify(updatedBacklogItem)
+    };
+    fetch(`http://localhost:8080/api/backlog/${backlogId}`, init)
+      .then(response => {
+        if (response.status === 204) {
+          return null;
+        } else if (response.status === 400) {
+          return response.json();
+        } else {
+          return Promise.reject(`Unexpected status code: ${response.status}`);
+        }
+      })
+      .then(data => {
+        if (!data) {
+          fetchData();
+        } else {
+          console.log("There was an error updating your backlog.")
+        }
+      })
+      .catch(console.log);
+  };
+
+  const deleteBacklogItem = (backlogId) => {
+    const backlogItem = games.find(game => game.backlogId === backlogId);
+    if (window.confirm(`Delete ${backlogItem.title} from your backlog?`)) {
+      const init = {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${auth.user.token}`
+        }
+      };
+      fetch(`http://localhost:8080/api/backlog/${backlogId}`, init)
+        .then(response => {
+          if (response.status === 204) {
+            return null;
+          } else if (response.status === 404) {
+            return response.json();
+          } else {
+            return Promise.reject(`Unexpected status code: ${response.status}`);
+          }
+        })
+        .then(data => {
+          if (!data) {
+            fetchData();
+          } else {
+            console.log("There was an error deleting from your backlog.")
+          }
+        })
+        .catch(console.log);
+    }
+  };
 
   function renderDate(releaseDate) {
     const fields = releaseDate.split('-');
@@ -74,29 +142,29 @@ export default function Backlog() {
     const platformImageSrcs = [];
     for (var i = 0; i < platforms.length; i++) {
       var slug;
-      switch(platforms[i].platformId) {
-        case 1 : slug = "pc"; break;
-        case 2 : slug = "playstation"; break;
-        case 3 : slug = "xbox"; break;
-        case 4 : slug = "ios"; break;
-        case 5 : slug = "android"; break;
-        case 6 : slug = "mac"; break;
-        case 7 : slug = "linux"; break;
-        case 8 : slug = "nintendo"; break;
-        case 9 : slug = "atari"; break;
-        case 10 : slug = "commodore-amiga"; break;
-        case 11 : slug = "sega"; break;
-        case 12 : slug = "3do"; break;
-        case 13 : slug = "neo-geo"; break;
-        case 14 : slug = "web"; break;
-        default : slug = "";
+      switch (platforms[i].platformId) {
+        case 1: slug = "pc"; break;
+        case 2: slug = "playstation"; break;
+        case 3: slug = "xbox"; break;
+        case 4: slug = "ios"; break;
+        case 5: slug = "android"; break;
+        case 6: slug = "mac"; break;
+        case 7: slug = "linux"; break;
+        case 8: slug = "nintendo"; break;
+        case 9: slug = "atari"; break;
+        case 10: slug = "commodore-amiga"; break;
+        case 11: slug = "sega"; break;
+        case 12: slug = "3do"; break;
+        case 13: slug = "neo-geo"; break;
+        case 14: slug = "web"; break;
+        default: slug = "";
       }
       platformImageSrcs.push('/images/platform_icons/' + slug + '.svg');
     }
     const platformNames = platforms.map(p => p.name);
     const platformInfo = [platformImageSrcs, platformNames];
     return platformInfo;
-}
+  }
 
   const IOSSwitch = styled((props) => (
     <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
@@ -169,12 +237,17 @@ export default function Backlog() {
         </Typography>
         <Grid container align="center" spacing={2}>
           {games.map(game => (
-            <Card key={game.gameId} sx={{ width: '250px', height: 'auto', my: 2, mx: 2 }}>
-              <CardMedia
+            <Card key={game.backlogId} sx={{ width: '250px', height: 'auto', my: 2, mx: 2 }}>
+              {!game.isCompleted ? <CardMedia
                 component="img"
                 image={game.background_image}
                 style={{ height: '130px' }}
-                alt={game.title} />
+                alt={game.title} /> : 
+              <CardMedia
+                component="img"
+                image={game.background_image}
+                style={{ height: '130px', filter: "grayscale(100%)", opacity: '0.8'}}
+                alt={game.title} /> }
               <CardContent align="left">
                 <Box sx={{ mb: .7 }}>
                   <Typography display="inline" sx={{ fontSize: '18px' }}>
@@ -207,10 +280,9 @@ export default function Backlog() {
                 }}>
                   {game.score !== 0 ? game.score : '?'}
                 </Typography>
-                <FormGroup>
-                  {<IOSSwitch sx={{ m: .3 }} checked={game.isCompleted} />}
-                </FormGroup>
-                <Fab size="small" color="error" aria-label="delete" href="/backlog">
+                {<IOSSwitch sx={{ m: .3 }} defaultChecked={game.isCompleted}
+                  onChange={() => updateBacklogItem(game.backlogId, game.userId, game.gameId, game.datetimeAdded, !game.isCompleted)} />}
+                <Fab size="small" color="error" aria-label="delete" onClick={() => deleteBacklogItem(game.backlogId)}>
                   <DeleteIcon />
                 </Fab>
               </CardActions>
