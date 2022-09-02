@@ -14,6 +14,7 @@ import ContactUs from './components/ContactUs';
 import Backlog from './components/Backlog';
 import Featured from './components/Featured';
 import Search from './components/Search';
+import Box from '@mui/material/Box';
 
 const darkTheme = createTheme({
   palette: {
@@ -72,6 +73,13 @@ function App() {
   return (
     <AuthContext.Provider value={auth}>
       <ThemeProvider theme={darkTheme}>
+      <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+      }}
+    >
         <CssBaseline />
         <Router>
           <Navbar />
@@ -101,6 +109,7 @@ function App() {
           </Switch>
           <Footer />
         </Router>
+        </Box>
       </ThemeProvider>
     </AuthContext.Provider>
   );
