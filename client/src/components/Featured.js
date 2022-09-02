@@ -18,6 +18,7 @@ function Featured() {
     const [games, setGames] = useState([]);
     const [successOpen, setSuccessOpen] = useState(false);
     const [errorOpen, setErrorOpen] = useState(false);
+    const [notLoggedInOpen, setNotLoggedInOpen] = useState(false);
     const auth = useContext(AuthContext);
 
     useEffect(() => {
@@ -44,6 +45,10 @@ function Featured() {
         const platforms = parent_platforms ? renderPlatforms(parent_platforms)[1] : [];
         const genre = genres.length > 0 ? renderGenre(genres) : "N/A";
 
+        if (!auth.user) {
+            setNotLoggedInOpen(true);
+            return;
+        }
         // fetch userId
         var userId;
         await fetch(`http://localhost:8080/api/user/${auth.user.username}`)
@@ -220,6 +225,7 @@ function Featured() {
         }
         setSuccessOpen(false);
         setErrorOpen(false);
+        setNotLoggedInOpen(false);
     };
 
     function renderPlatforms(platforms) {
@@ -358,6 +364,11 @@ function Featured() {
             <Snackbar open={errorOpen} autoHideDuration={5000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
                     Error! Game has already been added to your backlog.
+                </Alert>
+            </Snackbar>
+            <Snackbar open={notLoggedInOpen} autoHideDuration={5000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    Error! You must be signed in to add to your backlog.
                 </Alert>
             </Snackbar>
         </>

@@ -10,11 +10,23 @@ import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, forwardRef } from "react";
 import AuthContext from "../context/AuthContext";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 export default function Backlog() {
   const [games, setGames] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [backlogIdToDelete, setBacklogIdToDelete] = useState(0);
+  const [backlogNameToDelete, setBacklogNameToDelete] = useState('');
+  const [successOpen, setSuccessOpen] = useState(false);
   const auth = useContext(AuthContext);
 
   useEffect(() => {
@@ -105,34 +117,58 @@ export default function Backlog() {
   };
 
   const deleteBacklogItem = (backlogId) => {
-    const backlogItem = games.find(game => game.backlogId === backlogId);
-    if (window.confirm(`Delete ${backlogItem.title} from your backlog?`)) {
-      const init = {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${auth.user.token}`
+    const init = {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${auth.user.token}`
+      }
+    };
+    fetch(`http://localhost:8080/api/backlog/${backlogId}`, init)
+      .then(response => {
+        if (response.status === 204) {
+          return null;
+        } else if (response.status === 404) {
+          return response.json();
+        } else {
+          return Promise.reject(`Unexpected status code: ${response.status}`);
         }
-      };
-      fetch(`http://localhost:8080/api/backlog/${backlogId}`, init)
-        .then(response => {
-          if (response.status === 204) {
-            return null;
-          } else if (response.status === 404) {
-            return response.json();
-          } else {
-            return Promise.reject(`Unexpected status code: ${response.status}`);
-          }
-        })
-        .then(data => {
-          if (!data) {
-            fetchData();
-          } else {
-            console.log("There was an error deleting from your backlog.")
-          }
-        })
-        .catch(console.log);
-    }
+      })
+      .then(data => {
+        if (!data) {
+          fetchData();
+          setSuccessOpen(true);
+        } else {
+          console.log("There was an error deleting from your backlog.")
+        }
+      })
+      .catch(console.log);
   };
+
+  const handleDeleteClick = (backlogId) => {
+    setBacklogIdToDelete(backlogId);
+    setBacklogNameToDelete(games.find(game => game.backlogId === backlogId).title);
+    setOpen(true);
+  };
+
+  const handleCloseNo = () => {
+    setOpen(false);
+  };
+
+  const handleCloseYes = () => {
+    setOpen(false);
+    deleteBacklogItem(backlogIdToDelete);
+  };
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSuccessOpen(false);
+  };
+
+  const Alert = forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
   function renderDate(releaseDate) {
     const fields = releaseDate.split('-');
@@ -324,14 +360,36 @@ export default function Backlog() {
                 </Typography>}
                 {<IOSSwitch sx={{ m: .3 }} defaultChecked={game.isCompleted}
                   onChange={() => updateBacklogItem(game.backlogId, game.userId, game.gameId, game.datetimeAdded, !game.isCompleted)} />}
-                <Fab size="small" color="error" aria-label="delete" onClick={() => deleteBacklogItem(game.backlogId)}>
+                <Fab size="small" color="error" aria-label="delete" onClick={() => handleDeleteClick(game.backlogId)}>
                   <DeleteIcon />
                 </Fab>
               </CardActions>
             </Card>
           ))}
+          <Dialog
+            open={open}
+            keepMounted
+            onClose={handleCloseNo}
+            aria-describedby="alert-dialog-slide-description"
+          >
+            <DialogTitle>{"Whoa, there..."}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-slide-description">
+                Are you sure you want to delete {backlogNameToDelete}?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseNo}>Cancel</Button>
+              <Button onClick={handleCloseYes}>Delete</Button>
+            </DialogActions>
+          </Dialog>
         </Grid>
       </Container>
+      <Snackbar open={successOpen} autoHideDuration={3000} onClose={handleSnackbarClose}>
+        <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '100%' }}>
+          Success! {backlogNameToDelete} has been deleted from your backlog.
+        </Alert>
+      </Snackbar>
     </>
   );
 }
