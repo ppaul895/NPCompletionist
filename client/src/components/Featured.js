@@ -22,7 +22,7 @@ function Featured() {
     const auth = useContext(AuthContext);
 
     useEffect(() => {
-        fetch('https://api.rawg.io/api/games?key=349a281c3d9c4c97838c1666b0c84955&page_size=40')
+        fetch('https://api.rawg.io/api/games?key=3615dbec344c43a88311e362e3b010c5&page_size=40')
             .then(response => {
                 if (response.status === 200) {
                     return response.json();
